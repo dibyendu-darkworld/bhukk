@@ -1,3 +1,4 @@
+import 'package:bhukk/theme/Apptheme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -138,34 +139,48 @@ class HomeScreen extends StatelessWidget {
             //recommended section
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
-                'Recommendation',
-                style: GoogleFonts.jaldi(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Recommendation',
+                    style: GoogleFonts.jaldi(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    'View all',
+                    style: GoogleFonts.jaldi(
+                      color: Colors.orange,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
             ),
             // cards with image and restauent name and price
             const SizedBox(height: 16),
             SizedBox(
-              height: 280,
+              height: 250, // Total height for square cards
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: 5, // Example recommended items
                 itemBuilder: (context, index) => Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
+                  width: MediaQuery.of(context).size.width *
+                      0.45, // Square-like width
                   margin: const EdgeInsets.symmetric(horizontal: 8),
                   decoration: BoxDecoration(
                     color: Colors.grey[850],
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(16),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.3),
-                        blurRadius: 10,
+                        color: Colors.black.withOpacity(0.2),
+                        blurRadius: 8,
                         spreadRadius: 1,
-                        offset: Offset(0, 5),
+                        offset: Offset(0, 4),
                       ),
                     ],
                   ),
@@ -176,11 +191,11 @@ class HomeScreen extends StatelessWidget {
                       Stack(
                         children: [
                           Container(
-                            height: 130,
+                            height: 120, // Top half is the image
                             decoration: BoxDecoration(
                               borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(20),
-                                topRight: Radius.circular(20),
+                                topLeft: Radius.circular(16),
+                                topRight: Radius.circular(16),
                               ),
                               image: DecorationImage(
                                 image: NetworkImage(
@@ -189,64 +204,68 @@ class HomeScreen extends StatelessWidget {
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            child: Align(
-                              alignment: Alignment.bottomRight,
-                              child: Container(
-                                margin: const EdgeInsets.all(8),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 8, vertical: 4),
-                                decoration: BoxDecoration(
-                                  color: Colors.black.withOpacity(0.7),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Icon(Icons.star,
-                                        color: Colors.orange, size: 14),
-                                    const SizedBox(width: 4),
-                                    Text(
-                                      '4.${index + 2}', // Example rating
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12,
-                                      ),
+                          ),
+                          Positioned(
+                            top: 8,
+                            right: 8,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 6, vertical: 3),
+                              decoration: BoxDecoration(
+                                color: Colors.black.withOpacity(0.6),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(Icons.star,
+                                      color: Colors.orange, size: 14),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    '4.${index + 2}', // Example rating
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 12,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
                         ],
                       ),
-                      // Content
+                      // Content below image
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 8),
+                            horizontal: 10, vertical: 4),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             // Dish Name
                             Text(
-                              'Dish Name ${index + 1}', // Dish name
+                              'Dish Name ${index + 1}',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.jaldi(
                                 color: Colors.white,
-                                fontSize: 16,
+                                fontSize: 26,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             const SizedBox(height: 4),
-                            // Restaurant Name
-                            Text(
-                              'Restaurant ${index + 1}', // Restaurant name
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: GoogleFonts.jaldi(
-                                color: Colors.white70,
-                                fontSize: 14,
-                              ),
+                            // Prep Time
+                            Row(
+                              children: [
+                                Icon(Icons.timer,
+                                    color: Colors.white70, size: 16),
+                                Text(
+                                  '${index + 10} min',
+                                  style: TextStyle(
+                                    color: Colors.white70,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
                             ),
                             const SizedBox(height: 8),
                             // Price and Add Button
@@ -255,10 +274,10 @@ class HomeScreen extends StatelessWidget {
                               children: [
                                 // Price
                                 Text(
-                                  '\$${index + 10}', // Price
+                                  '\$${index + 10}.00', // Price
                                   style: GoogleFonts.jaldi(
-                                    color: Colors.orange,
-                                    fontSize: 16,
+                                    color: Colors.white,
+                                    fontSize: 26,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -268,56 +287,13 @@ class HomeScreen extends StatelessWidget {
                                     // Add functionality
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.orange,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 6,
-                                      horizontal: 12,
-                                    ),
+                                    shape: const CircleBorder(),
+                                    backgroundColor: Colors.white,
+                                    padding: const EdgeInsets.all(
+                                        10), // Circle button size
                                   ),
-                                  child: Text(
-                                    'Add',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 8),
-                            // Time Details
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                // Prep Time
-                                Row(
-                                  children: [
-                                    Icon(Icons.access_time,
-                                        color: Colors.white70, size: 14),
-                                    const SizedBox(width: 4),
-                                    Text(
-                                      'Prep: ${index + 10} min',
-                                      style: TextStyle(
-                                        color: Colors.white70,
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                // ETA
-                                Row(
-                                  children: [
-                                    Icon(Icons.delivery_dining,
-                                        color: Colors.white70, size: 14),
-                                    const SizedBox(width: 4),
-                                    Text(
-                                      'ETA: ${index + 15} min',
-                                      style: TextStyle(
-                                        color: Colors.white70,
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                  ],
+                                  child: Icon(Icons.add,
+                                      color: Colors.black, size: 26),
                                 ),
                               ],
                             ),
@@ -335,13 +311,26 @@ class HomeScreen extends StatelessWidget {
             // Nearby Restaurants Section
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
-                'Nearby Restaurants',
-                style: GoogleFonts.jaldi(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Nearby Restaurants',
+                    style: GoogleFonts.jaldi(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    'View all',
+                    style: GoogleFonts.jaldi(
+                      color: Colors.orange,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 16),
@@ -351,30 +340,42 @@ class HomeScreen extends StatelessWidget {
               itemCount: 5, // Example restaurant cards
               itemBuilder: (context, index) => Container(
                 margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   color: Colors.grey[900],
                   borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 8,
+                      spreadRadius: 1,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // Restaurant Image
                     Container(
                       height: 100,
                       width: 100,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         image: DecorationImage(
-                          image: AssetImage(
-                              'assets/images/restaurant_${index + 1}.jpg'),
+                          image: NetworkImage(
+                              'https://b.zmtcdn.com/data/collections/96541881ed7b42d424990403ac3afdbf_1712923159.png'),
                           fit: BoxFit.cover,
                         ),
                       ),
                     ),
                     const SizedBox(width: 12),
+                    // Restaurant Details
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          // Restaurant Name
                           Text(
                             'Restaurant ${index + 1}',
                             style: GoogleFonts.jaldi(
@@ -383,33 +384,84 @@ class HomeScreen extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const SizedBox(height: 8),
-                          Text(
-                            'Cuisine, More Cuisine',
-                            style: GoogleFonts.jaldi(
-                              color: Colors.white70,
-                              fontSize: 14,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
+                          const SizedBox(height: 4),
+                          // Cuisine and Veg/Non-Veg Tag
                           Row(
                             children: [
-                              const Icon(Icons.star,
-                                  color: Colors.orange, size: 16),
-                              const SizedBox(width: 4),
-                              Text(
-                                '4.${index + 2}',
-                                style: GoogleFonts.jaldi(
-                                  color: Colors.white,
-                                  fontSize: 14,
+                              // Cuisine Text
+                              Expanded(
+                                child: Text(
+                                  'Cuisine, More Cuisine',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: GoogleFonts.jaldi(
+                                    color: Colors.white70,
+                                    fontSize: 14,
+                                  ),
                                 ),
                               ),
-                              const Spacer(),
+                              // Veg/Non-Veg Icon
+                              Container(
+                                margin: const EdgeInsets.only(left: 4),
+                                height: 14,
+                                width: 14,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: index % 2 == 0
+                                      ? Colors.green
+                                      : Colors.red,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          // Distance, Price for One, and Discounts
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              // Distance
+                              Row(
+                                children: [
+                                  Icon(Icons.location_on,
+                                      color: Colors.white70, size: 14),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    '${index + 1}.5 km',
+                                    style: GoogleFonts.jaldi(
+                                      color: Colors.white70,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              // Price for One
                               Text(
-                                '\$${index + 10} for two',
+                                '₹${index + 100} for one',
                                 style: GoogleFonts.jaldi(
                                   color: Colors.white70,
                                   fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          // Discounts
+                          Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 8, vertical: 4),
+                                decoration: BoxDecoration(
+                                  color: Colors.orange.withOpacity(0.2),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Text(
+                                  '40% OFF up to ₹80',
+                                  style: GoogleFonts.jaldi(
+                                    color: Colors.orange,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ],
