@@ -1,3 +1,4 @@
+import 'package:bhukk/components/ReusableCarousel.dart';
 import 'package:bhukk/theme/Apptheme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -68,26 +69,51 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            // Banner Section
-            Container(
-              height: 200,
-              margin: const EdgeInsets.symmetric(vertical: 16),
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 5, // Example banners
-                itemBuilder: (context, index) => Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    image: const DecorationImage(
-                      image: NetworkImage(
-                          'https://s.yimg.com/ny/api/res/1.2/bgk63rm_s6mAjI_yqWFT3A--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTM2MA--/https://s.yimg.com/os/creatr-uploaded-images/2023-11/fa60f910-8593-11ee-8bd7-5431bc7f2717'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+            // // Banner Section
+            // Container(
+            //   height: 200,
+            //   margin: const EdgeInsets.symmetric(vertical: 16),
+            //   child: ListView.builder(
+            //     scrollDirection: Axis.horizontal,
+            //     itemCount: 5, // Example banners
+            //     itemBuilder: (context, index) => Container(
+            //       width: MediaQuery.of(context).size.width * 0.8,
+            //       margin: const EdgeInsets.symmetric(horizontal: 8),
+            //       decoration: BoxDecoration(
+            //         borderRadius: BorderRadius.circular(20),
+            //         image: const DecorationImage(
+            //           image: NetworkImage(
+            //               'https://s.yimg.com/ny/api/res/1.2/bgk63rm_s6mAjI_yqWFT3A--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTM2MA--/https://s.yimg.com/os/creatr-uploaded-images/2023-11/fa60f910-8593-11ee-8bd7-5431bc7f2717'),
+            //           fit: BoxFit.cover,
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            // Promotional Section
+            ReusableCarousel(
+              items: [
+                CarouselItem(
+                  imageUrl:
+                      "https://cdn.thewirecutter.com/wp-content/media/2024/09/beardtrimmers-2048px-7372.jpg?auto=webp&quality=75&width=1024",
+                  title: 'Special Offer!',
+                  description: 'Get 50% off on your first order.',
+                  buttonText: 'Shop Now',
+                  onPressed: () {
+                    // Navigate to shop
+                  },
                 ),
-              ),
+                CarouselItem(
+                  imageUrl:
+                      'https://cdn.thewirecutter.com/wp-content/media/2024/09/beardtrimmers-2048px-7372.jpg?auto=webp&quality=75&width=1024',
+                  title: 'Limited Time!',
+                  description: 'Buy one, get one free.',
+                  buttonText: 'Grab Deal',
+                  onPressed: () {
+                    // Navigate to offer
+                  },
+                ),
+              ],
             ),
             // Categories Section
             Padding(
@@ -180,7 +206,7 @@ class HomeScreen extends StatelessWidget {
                         color: Colors.black.withOpacity(0.2),
                         blurRadius: 8,
                         spreadRadius: 1,
-                        offset: Offset(0, 4),
+                        offset: const Offset(0, 4),
                       ),
                     ],
                   ),
@@ -192,8 +218,8 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           Container(
                             height: 120, // Top half is the image
-                            decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.only(
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(16),
                                 topRight: Radius.circular(16),
                               ),
@@ -218,12 +244,12 @@ class HomeScreen extends StatelessWidget {
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Icon(Icons.star,
+                                  const Icon(Icons.star,
                                       color: Colors.orange, size: 14),
                                   const SizedBox(width: 4),
                                   Text(
                                     '4.${index + 2}', // Example rating
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 12,
                                     ),
@@ -256,11 +282,11 @@ class HomeScreen extends StatelessWidget {
                             // Prep Time
                             Row(
                               children: [
-                                Icon(Icons.timer,
+                                const Icon(Icons.timer,
                                     color: Colors.white70, size: 16),
                                 Text(
                                   '${index + 10} min',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.white70,
                                     fontSize: 12,
                                   ),
@@ -292,7 +318,7 @@ class HomeScreen extends StatelessWidget {
                                     padding: const EdgeInsets.all(
                                         10), // Circle button size
                                   ),
-                                  child: Icon(Icons.add,
+                                  child: const Icon(Icons.add,
                                       color: Colors.black, size: 26),
                                 ),
                               ],
@@ -362,7 +388,7 @@ class HomeScreen extends StatelessWidget {
                       width: 100,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
-                        image: DecorationImage(
+                        image: const DecorationImage(
                           image: NetworkImage(
                               'https://b.zmtcdn.com/data/collections/96541881ed7b42d424990403ac3afdbf_1712923159.png'),
                           fit: BoxFit.cover,
@@ -422,7 +448,7 @@ class HomeScreen extends StatelessWidget {
                               // Distance
                               Row(
                                 children: [
-                                  Icon(Icons.location_on,
+                                  const Icon(Icons.location_on,
                                       color: Colors.white70, size: 14),
                                   const SizedBox(width: 4),
                                   Text(

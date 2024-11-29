@@ -1,10 +1,11 @@
 import 'package:bhukk/route/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class GetStartedScreen extends StatelessWidget {
+  const GetStartedScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     // Get screen dimensions
@@ -78,7 +79,7 @@ class GetStartedScreen extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         // Add your onTap code here!
-                        Get.toNamed(Routes.home);
+                        Get.offAllNamed(Routes.home);
                       },
                       child: Container(
                         padding: EdgeInsets.symmetric(

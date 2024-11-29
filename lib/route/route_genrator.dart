@@ -13,7 +13,7 @@ class RouteGenerator {
         widgetScreen = SplashScreen();
         break;
       case Routes.getstarted:
-        widgetScreen = GetStartedScreen();
+        widgetScreen = const GetStartedScreen();
         break;
       case Routes.home:
         widgetScreen = HomeScreen();

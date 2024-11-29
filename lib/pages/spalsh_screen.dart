@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 2), () {
       Get.toNamed(Routes.getstarted);
     });
 
