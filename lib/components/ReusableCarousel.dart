@@ -57,7 +57,7 @@ class ReusableCarousel extends StatelessWidget {
                         //logo
                         const Spacer(),
                         Image.network(
-                          'https://companieslogo.com/img/orig/PHG-ee0aced4.png?t=1720244493',
+                          item.logoimageUrl,
                           height: 40,
                         ),
                       ],
@@ -101,6 +101,7 @@ class ReusableCarousel extends StatelessWidget {
 
 class CarouselItem {
   final String imageUrl;
+  final String logoimageUrl;
   final String title;
   final String description;
   final String buttonText;
@@ -108,6 +109,7 @@ class CarouselItem {
 
   CarouselItem({
     required this.imageUrl,
+    required this.logoimageUrl,
     required this.title,
     required this.description,
     required this.buttonText,

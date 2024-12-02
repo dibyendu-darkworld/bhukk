@@ -1,3 +1,5 @@
+import 'package:bhukk/components/CardList.dart';
+import 'package:bhukk/components/CategoryList.dart';
 import 'package:bhukk/components/ReusableCarousel.dart';
 import 'package:bhukk/theme/Apptheme.dart';
 import 'package:flutter/material.dart';
@@ -69,51 +71,36 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            // // Banner Section
-            // Container(
-            //   height: 200,
-            //   margin: const EdgeInsets.symmetric(vertical: 16),
-            //   child: ListView.builder(
-            //     scrollDirection: Axis.horizontal,
-            //     itemCount: 5, // Example banners
-            //     itemBuilder: (context, index) => Container(
-            //       width: MediaQuery.of(context).size.width * 0.8,
-            //       margin: const EdgeInsets.symmetric(horizontal: 8),
-            //       decoration: BoxDecoration(
-            //         borderRadius: BorderRadius.circular(20),
-            //         image: const DecorationImage(
-            //           image: NetworkImage(
-            //               'https://s.yimg.com/ny/api/res/1.2/bgk63rm_s6mAjI_yqWFT3A--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTM2MA--/https://s.yimg.com/os/creatr-uploaded-images/2023-11/fa60f910-8593-11ee-8bd7-5431bc7f2717'),
-            //           fit: BoxFit.cover,
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
+
             // Promotional Section
-            ReusableCarousel(
-              items: [
-                CarouselItem(
-                  imageUrl:
-                      "https://cdn.thewirecutter.com/wp-content/media/2024/09/beardtrimmers-2048px-7372.jpg?auto=webp&quality=75&width=1024",
-                  title: 'Special Offer!',
-                  description: 'Get 50% off on your first order.',
-                  buttonText: 'Shop Now',
-                  onPressed: () {
-                    // Navigate to shop
-                  },
-                ),
-                CarouselItem(
-                  imageUrl:
-                      'https://cdn.thewirecutter.com/wp-content/media/2024/09/beardtrimmers-2048px-7372.jpg?auto=webp&quality=75&width=1024',
-                  title: 'Limited Time!',
-                  description: 'Buy one, get one free.',
-                  buttonText: 'Grab Deal',
-                  onPressed: () {
-                    // Navigate to offer
-                  },
-                ),
-              ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: ReusableCarousel(
+                items: [
+                  CarouselItem(
+                    imageUrl: "https://i.ibb.co/RvxKsfW/combo.gif",
+                    title: 'Special Offer! on KFC ',
+                    description: 'Get 50% off on your first order.',
+                    buttonText: 'Shop Now',
+                    logoimageUrl:
+                        "https://upload.wikimedia.org/wikipedia/sco/thumb/b/bf/KFC_logo.svg/1024px-KFC_logo.svg.png",
+                    onPressed: () {
+                      // Navigate to shop
+                    },
+                  ),
+                  CarouselItem(
+                    imageUrl: 'https://i.ibb.co/P1pm5ff/pancake.png',
+                    title: 'Limited Time!',
+                    description: 'Buy one, get one free.',
+                    buttonText: 'Grab Deal',
+                    logoimageUrl:
+                        "https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png",
+                    onPressed: () {
+                      // Navigate to offer
+                    },
+                  ),
+                ],
+              ),
             ),
             // Categories Section
             Padding(
@@ -128,39 +115,27 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            SizedBox(
-              height: 120,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 8, // Example categories
-                itemBuilder: (context, index) => Column(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 8),
-                      height: 80,
-                      width: 80,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[900],
-                        borderRadius: BorderRadius.circular(40),
-                        image: const DecorationImage(
-                          image: NetworkImage(
-                              'https://static.vecteezy.com/system/resources/previews/046/326/679/non_2x/chicken-biryani-food-png.png'),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Biriyani',
-                      style: GoogleFonts.jaldi(
-                        color: Colors.white70,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ],
+            ReusableCategoryList(
+              categories: [
+                CategoryItem(
+                  name: 'Biriyani',
+                  imageUrl:
+                      'https://img.freepik.com/free-psd/delicious-cheese-pizza-isolated-transparent-background_84443-1216.jpg',
                 ),
-              ),
+                CategoryItem(
+                  name: 'Pizza',
+                  imageUrl:
+                      'https://imgmedia.lbb.in/media/2019/07/5d242ad8e93a896e5542da0d_1562651352251.jpg',
+                ),
+                CategoryItem(
+                  name: 'Burger',
+                  imageUrl:
+                      'https://img.freepik.com/free-psd/fresh-beef-burger-isolated-transparent-background_191095-9018.jpg',
+                ),
+                // Add more categories as needed
+              ],
             ),
+
             // const SizedBox(height: 24),
             //recommended section
             Padding(
@@ -189,147 +164,43 @@ class HomeScreen extends StatelessWidget {
             ),
             // cards with image and restauent name and price
             const SizedBox(height: 16),
-            SizedBox(
-              height: 250, // Total height for square cards
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 5, // Example recommended items
-                itemBuilder: (context, index) => Container(
-                  width: MediaQuery.of(context).size.width *
-                      0.45, // Square-like width
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[850],
-                    borderRadius: BorderRadius.circular(16),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        blurRadius: 8,
-                        spreadRadius: 1,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Image with rating overlay
-                      Stack(
-                        children: [
-                          Container(
-                            height: 120, // Top half is the image
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(16),
-                                topRight: Radius.circular(16),
-                              ),
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRj4fbDzlSwNqWoBrAIR5tG2DH7S2u4I9qTg&s',
-                                ),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            top: 8,
-                            right: 8,
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 6, vertical: 3),
-                              decoration: BoxDecoration(
-                                color: Colors.black.withOpacity(0.6),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Icon(Icons.star,
-                                      color: Colors.orange, size: 14),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    '4.${index + 2}', // Example rating
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      // Content below image
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 4),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // Dish Name
-                            Text(
-                              'Dish Name ${index + 1}',
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: GoogleFonts.jaldi(
-                                color: Colors.white,
-                                fontSize: 26,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            // Prep Time
-                            Row(
-                              children: [
-                                const Icon(Icons.timer,
-                                    color: Colors.white70, size: 16),
-                                Text(
-                                  '${index + 10} min',
-                                  style: const TextStyle(
-                                    color: Colors.white70,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 8),
-                            // Price and Add Button
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                // Price
-                                Text(
-                                  '\$${index + 10}.00', // Price
-                                  style: GoogleFonts.jaldi(
-                                    color: Colors.white,
-                                    fontSize: 26,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                // Add Button
-                                ElevatedButton(
-                                  onPressed: () {
-                                    // Add functionality
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    shape: const CircleBorder(),
-                                    backgroundColor: Colors.white,
-                                    padding: const EdgeInsets.all(
-                                        10), // Circle button size
-                                  ),
-                                  child: const Icon(Icons.add,
-                                      color: Colors.black, size: 26),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+            RecommendedCardList(
+              items: [
+                RecommendedItem(
+                  name: 'KFC Zinger Burger',
+                  imageUrl:
+                      'https://www.indiablooms.com/life_pic/2020/5148dabdddfb323553feea68573167e7.jpg',
+                  rating: 4.5,
+                  prepTime: 15,
+                  price: 360.99,
+                  onAdd: () {
+                    print('Added Dish 1');
+                  },
                 ),
-              ),
+                RecommendedItem(
+                  name: 'Mixed Noodles',
+                  imageUrl:
+                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRj4fbDzlSwNqWoBrAIR5tG2DH7S2u4I9qTg&s',
+                  rating: 5.0,
+                  prepTime: 20,
+                  price: 200.99,
+                  onAdd: () {
+                    print('Added Dish 2');
+                  },
+                ),
+                RecommendedItem(
+                  name: 'Chicken BiryANI',
+                  imageUrl:
+                      'https://i0.wp.com/blendofspicesbysara.com/wp-content/uploads/2020/10/PXL_20201011_200951855.PORTRAIT-01.jpeg?resize=800%2C840&ssl=1',
+                  rating: 4.8,
+                  prepTime: 25,
+                  price: 250.99,
+                  onAdd: () {
+                    print('Added Dish 3');
+                  },
+                ),
+                // Add more items as needed
+              ],
             ),
 
             const SizedBox(height: 16),
@@ -369,7 +240,7 @@ class HomeScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   color: Colors.grey[900],
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.2),
