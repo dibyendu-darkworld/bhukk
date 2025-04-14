@@ -56,3 +56,60 @@ class CategoryItem {
     required this.imageUrl,
   });
 }
+
+class CategoryList extends StatelessWidget {
+  final String categoryName;
+  final IconData icon;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const CategoryList({
+    Key? key,
+    required this.categoryName,
+    required this.icon,
+    required this.isSelected,
+    required this.onTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.only(right: 12),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: isSelected ? Colors.orange : Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.1),
+                    spreadRadius: 1,
+                    blurRadius: 2,
+                    offset: const Offset(0, 1),
+                  ),
+                ],
+              ),
+              child: Icon(
+                icon,
+                color: isSelected ? Colors.white : Colors.grey,
+                size: 24,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              categoryName,
+              style: TextStyle(
+                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                color: isSelected ? Colors.orange : Colors.black,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

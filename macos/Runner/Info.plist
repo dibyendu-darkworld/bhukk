@@ -28,5 +28,11 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>NSLocationUsageDescription</key>
+	<string>This app needs access to location to find nearby restaurants</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This app needs access to location to find nearby restaurants</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app needs access to location to find nearby restaurants</string>
 </dict>
 </plist>

@@ -38,6 +38,11 @@ dependencies:
   google_fonts: ^6.2.1
   get: ^4.6.6
   carousel_slider: ^5.0.0
+  
+  # HTTP related packages
+  http: ^1.2.1
+  flutter_secure_storage: ^9.0.0
+  geolocator: ^10.1.0
 
 dev_dependencies:
   flutter_test:
