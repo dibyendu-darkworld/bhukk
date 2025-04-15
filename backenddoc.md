@@ -60,6 +60,16 @@ bhukkBackend/
   - Restaurant location and hours management
   - Built with TailwindCSS and HTMX for dynamic updates
 
+- 🎠 **App Carousel Management**
+  - Dynamic promotional carousel images and text for mobile app
+  - Modern admin interface with drag-and-drop image upload functionality
+  - Base64 image handling for direct upload from browser
+  - Auto-fallback to placeholder images for broken image URLs
+  - Ordering control for carousel item position
+  - Enable/disable carousel items without deletion
+  - Support for redirects to specific content when carousel items are tapped
+  - Responsive image display with proper error handling
+
 ## Technology Stack
 
 - **Framework**: FastAPI with Python 3.11+
@@ -893,6 +903,192 @@ Toggle the admin status of a user.
   }
   ```
 
+### Carousel Endpoints
+
+#### List Carousel Items
+```
+GET /api/v1/carousel/
+```
+
+Get all active carousel items for the mobile app.
+
+**Query Parameters:**
+- `skip` (optional): Number of records to skip (default: 0)
+- `limit` (optional): Maximum number of records to return (default: 10)
+- `active_only` (optional): Only return active items (default: true)
+
+**Success Response (200 OK):**
+```json
+[
+  {
+    "id": 1,
+    "title": "New Restaurant Offers",
+    "subtitle": "Get 20% off on your first order",
+    "image_url": "https://example.com/promo1.jpg",
+    "redirect_url": "/offers/123",
+    "position": 1,
+    "is_active": true,
+    "created_at": "2023-07-15T12:30:45",
+    "updated_at": "2023-07-15T12:30:45"
+  },
+  {
+    "id": 2,
+    "title": "Weekend Special",
+    "subtitle": "Free delivery all weekend",
+    "image_url": "https://example.com/promo2.jpg",
+    "redirect_url": "/promos/weekend",
+    "position": 2,
+    "is_active": true,
+    "created_at": "2023-07-15T12:35:45",
+    "updated_at": "2023-07-15T12:35:45"
+  }
+]
+```
+
+#### Create Carousel Item
+```
+POST /api/v1/carousel/
+```
+
+Create a new carousel item (requires admin authentication).
+
+**Authentication**: Bearer token required (admin privileges)
+
+**Request Body:**
+```json
+{
+  "title": "New Promotion",
+  "subtitle": "Check out our latest offers",
+  "image_url": "https://example.com/promo3.jpg",
+  "redirect_url": "/promotions/new",
+  "position": 3,
+  "is_active": true
+}
+```
+
+**Success Response (200 OK):**
+```json
+{
+  "id": 3,
+  "title": "New Promotion",
+  "subtitle": "Check out our latest offers",
+  "image_url": "https://example.com/promo3.jpg",
+  "redirect_url": "/promotions/new",
+  "position": 3,
+  "is_active": true,
+  "created_at": "2023-07-20T10:15:30",
+  "updated_at": "2023-07-20T10:15:30"
+}
+```
+
+#### Get Carousel Item by ID
+```
+GET /api/v1/carousel/{item_id}
+```
+
+Get details of a specific carousel item.
+
+**Path Parameters:**
+- `item_id`: ID of the carousel item to retrieve
+
+**Success Response (200 OK):**
+```json
+{
+  "id": 1,
+  "title": "New Restaurant Offers",
+  "subtitle": "Get 20% off on your first order",
+  "image_url": "https://example.com/promo1.jpg",
+  "redirect_url": "/offers/123",
+  "position": 1,
+  "is_active": true,
+  "created_at": "2023-07-15T12:30:45",
+  "updated_at": "2023-07-15T12:30:45"
+}
+```
+
+#### Update Carousel Item
+```
+PATCH /api/v1/carousel/{item_id}
+```
+
+Update a carousel item (requires admin authentication).
+
+**Authentication**: Bearer token required (admin privileges)
+
+**Path Parameters:**
+- `item_id`: ID of the carousel item to update
+
+**Request Body:**
+```json
+{
+  "title": "Updated Promotion",
+  "subtitle": "New subtitle text",
+  "is_active": false
+}
+```
+
+**Success Response (200 OK):**
+```json
+{
+  "id": 1,
+  "title": "Updated Promotion",
+  "subtitle": "New subtitle text",
+  "image_url": "https://example.com/promo1.jpg",
+  "redirect_url": "/offers/123",
+  "position": 1,
+  "is_active": false,
+  "created_at": "2023-07-15T12:30:45",
+  "updated_at": "2023-07-20T11:25:30"
+}
+```
+
+#### Delete Carousel Item
+```
+DELETE /api/v1/carousel/{item_id}
+```
+
+Delete a carousel item (requires admin authentication).
+
+**Authentication**: Bearer token required (admin privileges)
+
+**Path Parameters:**
+- `item_id`: ID of the carousel item to delete
+
+**Success Response (200 OK):**
+```json
+{
+  "success": true,
+  "message": "Carousel item 1 deleted successfully"
+}
+```
+
+#### Toggle Carousel Item Active Status
+```
+POST /api/v1/carousel/{item_id}/toggle-active
+```
+
+Toggle the active status of a carousel item (requires admin authentication).
+
+**Authentication**: Bearer token required (admin privileges)
+
+**Path Parameters:**
+- `item_id`: ID of the carousel item to toggle
+
+**Success Response (200 OK):**
+```json
+{
+  "id": 1,
+  "title": "New Restaurant Offers",
+  "subtitle": "Get 20% off on your first order",
+  "image_url": "https://example.com/promo1.jpg",
+  "redirect_url": "/offers/123",
+  "position": 1,
+  "is_active": false,
+  "created_at": "2023-07-15T12:30:45",
+  "updated_at": "2023-07-20T14:05:15"
+}
+```
+
 ### Health Endpoint
 
 #### Health Check
@@ -1025,6 +1221,34 @@ For optimal performance in the nearby search feature, restaurants should include
 
 - Accurate latitude and longitude coordinates
 - Opening and closing times in 24-hour format (HH:MM)
+
+### Carousel Management
+
+The carousel management feature provides a modern interface for managing promotional banners in the mobile app:
+
+#### Admin Interface
+- **Modern UI**: Clean, responsive interface for managing carousel items
+- **Image Upload**: Supports both URL entry and direct file upload via drag-and-drop
+- **Image Preview**: Real-time preview of carousel images with fallback for broken links
+- **Status Management**: Easily toggle items between active and inactive states
+- **Position Control**: Control the order of carousel items in the app
+
+#### Image Processing
+- **Fallback System**: Automatic placeholder display for unavailable images
+- **Data URL Support**: Base64 image encoding for direct browser-to-server uploads
+- **Error Handling**: Toast notifications for upload failures or loading issues
+- **Lazy Loading**: Images are loaded only when needed to improve performance
+
+#### Mobile Compatibility
+- **Responsive Design**: UI adapts to different screen sizes for management on mobile devices
+- **Optimized Images**: Images are displayed with proper scaling for all device types
+- **Lightweight**: Minimized loading time with efficient image processing
+
+#### API Integration
+- **RESTful Endpoints**: Clean API for CRUD operations on carousel items
+- **Data Validation**: Input validation for all carousel item properties
+- **Error Handling**: Comprehensive error handling with meaningful messages
+- **Filtering**: API supports filtering carousel items by status (active/inactive)
 
 ## Development
 

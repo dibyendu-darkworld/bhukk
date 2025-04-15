@@ -13,6 +13,9 @@ class ApiConfig {
   // Order endpoints
   static const String orders = '$baseUrl/api/v1/orders';
 
+  // Carousel endpoints
+  static const String carousel = '$baseUrl/api/v1/carousel';
+
   // Health check
   static const String healthCheck = '$baseUrl/health';
 

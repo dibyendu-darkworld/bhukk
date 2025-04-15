@@ -2,7 +2,9 @@ import 'package:bhukk/components/CardList.dart';
 import 'package:bhukk/components/CategoryList.dart';
 import 'package:bhukk/components/ReusableCarousel.dart';
 import 'package:bhukk/components/Restaurent.dart';
+import 'package:bhukk/models/carousel_item_model.dart';
 import 'package:bhukk/models/restaurant_model.dart';
+import 'package:bhukk/services/carousel_service.dart';
 import 'package:bhukk/services/restaurant_service.dart';
 import 'package:bhukk/theme/Apptheme.dart';
 import 'package:flutter/material.dart';
@@ -19,10 +21,20 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final RestaurantService _restaurantService = RestaurantService();
+  final CarouselService _carouselService = CarouselService();
+
   List<Restaurant> _nearbyRestaurants = [];
   List<Restaurant> _allRestaurants = [];
+  List<CarouselItem> _carouselItems = [];
+  List<String> _fallbackCarouselItems = [
+    'assets/images/combo.gif',
+    'assets/images/pancake.png',
+    'assets/images/burgeradd.png',
+  ];
+
   bool _isLoading = true;
   bool _isNearbyLoading = false;
+  bool _isCarouselLoading = true;
   bool _isLocationEnabled = false;
   bool _hasError = false;
   String _errorMessage = '';
@@ -31,13 +43,6 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentPage = 0;
   bool _isLoadingMore = false;
   bool _hasMoreData = true;
-
-  // Images for carousel
-  final List<String> _carouselItems = [
-    'assets/images/combo.gif',
-    'assets/images/pancake.png',
-    'assets/images/burgeradd.png',
-  ];
 
   // Food categories
   final List<Map<String, dynamic>> _categories = [
@@ -53,6 +58,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    // Load carousel items
+    _loadCarouselItems();
     // Load restaurants without checking location first
     _loadRestaurants();
     // Check location permission after initial setup
@@ -74,6 +81,38 @@ class _HomeScreenState extends State<HomeScreen> {
   void dispose() {
     _scrollController.dispose();
     super.dispose();
+  }
+
+  Future<void> _loadCarouselItems() async {
+    setState(() {
+      _isCarouselLoading = true;
+    });
+
+    try {
+      final carouselItems = await _carouselService.getCarouselItems();
+      setState(() {
+        _carouselItems = carouselItems;
+        _isCarouselLoading = false;
+      });
+    } catch (e) {
+      print('Error loading carousel items: $e');
+      setState(() {
+        _isCarouselLoading = false;
+      });
+    }
+  }
+
+  void _handleCarouselTap(String? redirectUrl) {
+    if (redirectUrl != null && redirectUrl.isNotEmpty) {
+      // Handle navigation based on redirect URL
+      // This could be expanded to handle different types of redirect URLs
+      if (redirectUrl.startsWith('/')) {
+        Get.toNamed(redirectUrl);
+      } else if (redirectUrl.startsWith('http')) {
+        // Launch browser for external URLs
+        // You would need to add the url_launcher package for this
+      }
+    }
   }
 
   Future<void> _initializeLocationServices() async {
@@ -181,10 +220,13 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _currentPage = 0;
     });
-    await _loadRestaurants();
-    if (_isLocationEnabled) {
-      await _loadNearbyRestaurants();
-    }
+
+    // Refresh all data
+    await Future.wait([
+      _loadCarouselItems(),
+      _loadRestaurants(),
+      if (_isLocationEnabled) _loadNearbyRestaurants(),
+    ]);
   }
 
   Future<void> _loadNearbyRestaurants() async {
@@ -327,10 +369,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 // Promotions carousel
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: ReusableCarousel(
-                    items: _carouselItems,
-                    carouselHeight: 180,
-                  ),
+                  child: _isCarouselLoading
+                      ? Center(
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                                AppTheme.primaryColor),
+                          ),
+                        )
+                      : ReusableCarousel(
+                          items: _carouselItems.isNotEmpty
+                              ? _carouselItems
+                              : _fallbackCarouselItems,
+                          carouselHeight: 180,
+                          useNetworkImage: _carouselItems.isNotEmpty,
+                          onItemTap: _handleCarouselTap,
+                        ),
                 ),
 
                 // Categories section
@@ -353,7 +406,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-
                 SizedBox(height: 16),
               ],
             ),
