@@ -26,15 +26,13 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     primaryColor: primaryColor,
-    colorScheme: ColorScheme.light(
+    colorScheme: const ColorScheme.light(
       primary: primaryColor,
       secondary: secondaryColor,
-      background: backgroundColor,
       surface: surfaceColor,
       error: errorColor,
       onPrimary: Colors.white,
       onSecondary: Colors.white,
-      onBackground: textColor,
       onSurface: textColor,
       onError: Colors.white,
     ),
@@ -111,15 +109,14 @@ class AppTheme {
       thickness: 1,
       color: Colors.grey.shade200,
     ),
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: Colors.white,
       selectedItemColor: primaryColor,
       unselectedItemColor: greyColor,
       type: BottomNavigationBarType.fixed,
       elevation: 8,
-      selectedLabelStyle:
-          const TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
-      unselectedLabelStyle: const TextStyle(fontSize: 12),
+      selectedLabelStyle: TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
+      unselectedLabelStyle: TextStyle(fontSize: 12),
     ),
     chipTheme: ChipThemeData(
       backgroundColor: Colors.grey.shade100,

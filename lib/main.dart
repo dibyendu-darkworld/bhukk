@@ -31,7 +31,7 @@ Future<void> main() async {
 
   // Set system UI overlay style
   SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
+    const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light,
       systemNavigationBarColor: Colors.white,
@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
       initialRoute: Routes.splash,
       onGenerateRoute: RouteGenerator.generateRoute,
       defaultTransition: Transition.fade,
-      home: SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }

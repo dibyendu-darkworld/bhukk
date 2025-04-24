@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Restaurant> _nearbyRestaurants = [];
   List<Restaurant> _allRestaurants = [];
   List<CarouselItem> _carouselItems = [];
-  List<String> _fallbackCarouselItems = [
+  final List<String> _fallbackCarouselItems = [
     'assets/images/combo.gif',
     'assets/images/pancake.png',
     'assets/images/burgeradd.png',
@@ -58,11 +58,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // Load carousel items
     _loadCarouselItems();
-    // Load restaurants without checking location first
     _loadRestaurants();
-    // Check location permission after initial setup
     _initializeLocationServices();
 
     // Setup scroll listener for pagination
@@ -94,8 +91,9 @@ class _HomeScreenState extends State<HomeScreen> {
         _carouselItems = carouselItems;
         _isCarouselLoading = false;
       });
-    } catch (e) {
+    } catch (e, stack) {
       print('Error loading carousel items: $e');
+      print(stack);
       setState(() {
         _isCarouselLoading = false;
       });
@@ -117,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _initializeLocationServices() async {
     // Give the app a moment to initialize plugins
-    Future.delayed(Duration(milliseconds: 500), () {
+    Future.delayed(const Duration(milliseconds: 500), () {
       _checkLocationPermission();
     });
   }
@@ -192,7 +190,9 @@ class _HomeScreenState extends State<HomeScreen> {
         _hasError = false;
         _hasMoreData = restaurants.length == 10;
       });
-    } catch (e) {
+    } catch (e, stack) {
+      print('Failed to load restaurants: $e');
+      print(stack);
       setState(() {
         _isLoading = false;
         _hasError = true;
@@ -248,8 +248,9 @@ class _HomeScreenState extends State<HomeScreen> {
         _nearbyRestaurants = nearbyRestaurants;
         _isNearbyLoading = false;
       });
-    } catch (e) {
+    } catch (e, stack) {
       print('Error getting nearby restaurants: $e');
+      print(stack);
       setState(() {
         _isNearbyLoading = false;
       });
@@ -294,11 +295,11 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.search, color: Colors.white),
+            icon: const Icon(Icons.search, color: Colors.white),
             onPressed: _navigateToSearch,
           ),
           IconButton(
-            icon: Icon(Icons.person_outline, color: Colors.white),
+            icon: const Icon(Icons.person_outline, color: Colors.white),
             onPressed: () => Get.toNamed(Routes.profile),
           ),
         ],
@@ -317,13 +318,13 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
+          const Icon(
             Icons.error_outline,
             size: 60,
             color: AppTheme.errorColor,
           ),
-          SizedBox(height: 16),
-          Text(
+          const SizedBox(height: 16),
+          const Text(
             'Oops! Something went wrong',
             style: TextStyle(
               fontSize: 18,
@@ -331,7 +332,7 @@ class _HomeScreenState extends State<HomeScreen> {
               color: AppTheme.textColor,
             ),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40),
             child: Text(
@@ -340,13 +341,13 @@ class _HomeScreenState extends State<HomeScreen> {
               style: TextStyle(color: Colors.grey[600]),
             ),
           ),
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
           ElevatedButton.icon(
             onPressed: _refreshData,
-            icon: Icon(Icons.refresh),
-            label: Text('Try Again'),
+            icon: const Icon(Icons.refresh),
+            label: const Text('Try Again'),
             style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             ),
           ),
         ],
@@ -359,7 +360,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ? _buildLoadingView()
         : SingleChildScrollView(
             controller: _scrollController,
-            physics: AlwaysScrollableScrollPhysics(),
+            physics: const AlwaysScrollableScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -370,7 +371,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   child: _isCarouselLoading
-                      ? Center(
+                      ? const Center(
                           child: CircularProgressIndicator(
                             valueColor: AlwaysStoppedAnimation<Color>(
                                 AppTheme.primaryColor),
@@ -397,16 +398,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 // Loading more indicator
                 if (_isLoadingMore)
-                  Center(
+                  const Center(
                     child: Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: EdgeInsets.all(16.0),
                       child: CircularProgressIndicator(
                         valueColor: AlwaysStoppedAnimation<Color>(
                             AppTheme.primaryColor),
                       ),
                     ),
                   ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
               ],
             ),
           );
@@ -417,10 +418,10 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CircularProgressIndicator(
+          const CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(AppTheme.primaryColor),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Text(
             'Loading restaurants...',
             style: TextStyle(color: Colors.grey[600]),
@@ -432,18 +433,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildLocationHeader() {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       color: AppTheme.primaryColor,
       child: Row(
         children: [
-          Icon(Icons.location_on, color: Colors.white),
-          SizedBox(width: 8),
+          const Icon(Icons.location_on, color: Colors.white),
+          const SizedBox(width: 8),
           Expanded(
             child: Text(
               _isLocationEnabled
                   ? 'Delivering to your current location'
                   : 'Location services disabled',
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
               ),
@@ -455,7 +456,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () {
                 // Navigate to change location screen
               },
-              child: Text(
+              child: const Text(
                 'Change',
                 style: TextStyle(
                   color: Colors.white,
@@ -485,7 +486,7 @@ class _HomeScreenState extends State<HomeScreen> {
         SizedBox(
           height: 100,
           child: ListView.builder(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             scrollDirection: Axis.horizontal,
             itemCount: _categories.length,
             itemBuilder: (context, index) {
@@ -509,7 +510,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildNearbyRestaurantsSection() {
     if (_nearbyRestaurants.isEmpty && !_isNearbyLoading) {
-      return SizedBox.shrink();
+      return const SizedBox.shrink();
     }
 
     return Column(
@@ -532,7 +533,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   onPressed: () {
                     // View all nearby restaurants
                   },
-                  child: Text(
+                  child: const Text(
                     'View All',
                     style: TextStyle(
                       color: AppTheme.primaryColor,
@@ -543,9 +544,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         _isNearbyLoading
-            ? Center(
+            ? const Center(
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: EdgeInsets.all(16.0),
                   child: CircularProgressIndicator(
                     valueColor:
                         AlwaysStoppedAnimation<Color>(AppTheme.primaryColor),
@@ -555,7 +556,7 @@ class _HomeScreenState extends State<HomeScreen> {
             : SizedBox(
                 height: 220,
                 child: ListView.builder(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   scrollDirection: Axis.horizontal,
                   itemCount: _nearbyRestaurants.length,
                   itemBuilder: (context, index) {
@@ -588,9 +589,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         _filteredRestaurants.isEmpty
-            ? Center(
+            ? const Center(
                 child: Padding(
-                  padding: const EdgeInsets.all(32.0),
+                  padding: EdgeInsets.all(32.0),
                   child: Text(
                     'No restaurants found',
                     style: TextStyle(
@@ -601,8 +602,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               )
             : ListView.builder(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                physics: NeverScrollableScrollPhysics(),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: _filteredRestaurants.length,
                 itemBuilder: (context, index) {
@@ -622,7 +623,7 @@ class _HomeScreenState extends State<HomeScreen> {
       selectedItemColor: AppTheme.primaryColor,
       unselectedItemColor: Colors.grey,
       currentIndex: 0,
-      items: [
+      items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: 'Home',

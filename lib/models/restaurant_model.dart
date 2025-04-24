@@ -1,8 +1,8 @@
 class Restaurant {
   final int id;
   final String name;
-  final String description;
-  final String address;
+  final String? description;
+  final String? address;
   final String cuisineType;
   final double rating;
   final int ownerId;
@@ -11,16 +11,16 @@ class Restaurant {
   final String? imageUrl;
   final double latitude;
   final double longitude;
-  final String openingTime;
-  final String closingTime;
+  final String? openingTime;
+  final String? closingTime;
   final double? distance;
   final bool? isOpen;
 
   Restaurant({
     required this.id,
     required this.name,
-    required this.description,
-    required this.address,
+    this.description,
+    this.address,
     required this.cuisineType,
     required this.rating,
     required this.ownerId,
@@ -29,8 +29,8 @@ class Restaurant {
     this.imageUrl,
     required this.latitude,
     required this.longitude,
-    required this.openingTime,
-    required this.closingTime,
+    this.openingTime,
+    this.closingTime,
     this.distance,
     this.isOpen,
   });
@@ -38,20 +38,20 @@ class Restaurant {
   factory Restaurant.fromJson(Map<String, dynamic> json) {
     return Restaurant(
       id: json['id'],
-      name: json['name'],
-      description: json['description'],
-      address: json['address'],
-      cuisineType: json['cuisine_type'],
-      rating: json['rating']?.toDouble() ?? 0.0,
-      ownerId: json['owner_id'],
-      isActive: json['is_active'],
-      isApproved: json['is_approved'],
-      imageUrl: json['image_url'],
-      latitude: json['latitude']?.toDouble() ?? 0.0,
-      longitude: json['longitude']?.toDouble() ?? 0.0,
-      openingTime: json['opening_time'],
-      closingTime: json['closing_time'],
-      distance: json['distance']?.toDouble(),
+      name: json['name'] ?? '',
+      description: json['description']?.toString(),
+      address: json['address']?.toString(),
+      cuisineType: json['cuisine_type'] ?? '',
+      rating: json['rating'] != null ? (json['rating'] as num).toDouble() : 0.0,
+      ownerId: json['owner_id'] ?? 0,
+      isActive: json['is_active'] ?? true,
+      isApproved: json['is_approved'] ?? true,
+      imageUrl: json['image_url']?.toString(),
+      latitude: json['latitude'] != null ? (json['latitude'] as num).toDouble() : 0.0,
+      longitude: json['longitude'] != null ? (json['longitude'] as num).toDouble() : 0.0,
+      openingTime: json['opening_time']?.toString(),
+      closingTime: json['closing_time']?.toString(),
+      distance: json['distance'] != null ? (json['distance'] as num).toDouble() : null,
       isOpen: json['is_open'],
     );
   }

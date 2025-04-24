@@ -4,8 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 class ReusableCategoryList extends StatelessWidget {
   final List<CategoryItem> categories;
 
-  const ReusableCategoryList({Key? key, required this.categories})
-      : super(key: key);
+  const ReusableCategoryList({super.key, required this.categories});
 
   @override
   Widget build(BuildContext context) {
@@ -64,12 +63,12 @@ class CategoryList extends StatelessWidget {
   final VoidCallback onTap;
 
   const CategoryList({
-    Key? key,
+    super.key,
     required this.categoryName,
     required this.icon,
     required this.isSelected,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

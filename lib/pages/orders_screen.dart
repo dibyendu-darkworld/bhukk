@@ -139,7 +139,7 @@ class _OrdersScreenState extends State<OrdersScreen>
         ),
       ),
       body: _isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : _orders.isEmpty
               ? Center(
                   child: Column(
@@ -147,7 +147,7 @@ class _OrdersScreenState extends State<OrdersScreen>
                     children: [
                       Icon(Icons.receipt_long,
                           size: 80, color: Colors.grey.shade300),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       Text(
                         'No orders yet',
                         style: GoogleFonts.jaldi(
@@ -156,14 +156,14 @@ class _OrdersScreenState extends State<OrdersScreen>
                           color: Colors.grey.shade600,
                         ),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       Text(
                         'Your order history will appear here',
                         style: TextStyle(
                           color: Colors.grey.shade600,
                         ),
                       ),
-                      SizedBox(height: 24),
+                      const SizedBox(height: 24),
                       ElevatedButton(
                         onPressed: () {
                           Get.offAllNamed('/home');
@@ -171,7 +171,7 @@ class _OrdersScreenState extends State<OrdersScreen>
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.orange,
                           foregroundColor: Colors.white,
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 24, vertical: 12),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -205,13 +205,13 @@ class _OrdersScreenState extends State<OrdersScreen>
                               ),
                             )
                           : ListView.builder(
-                              padding: EdgeInsets.all(16),
+                              padding: const EdgeInsets.all(16),
                               itemCount: filteredOrders.length,
                               itemBuilder: (context, index) {
                                 final order = filteredOrders[index];
 
                                 return Card(
-                                  margin: EdgeInsets.only(bottom: 16),
+                                  margin: const EdgeInsets.only(bottom: 16),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12),
                                   ),
@@ -240,8 +240,10 @@ class _OrdersScreenState extends State<OrdersScreen>
                                                 ),
                                               ),
                                               Container(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 8, vertical: 4),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 8,
+                                                        vertical: 4),
                                                 decoration: BoxDecoration(
                                                   color: _getStatusColor(
                                                           order.status)
@@ -261,12 +263,12 @@ class _OrdersScreenState extends State<OrdersScreen>
                                               ),
                                             ],
                                           ),
-                                          SizedBox(height: 12),
+                                          const SizedBox(height: 12),
                                           Row(
                                             children: [
-                                              Icon(Icons.restaurant,
+                                              const Icon(Icons.restaurant,
                                                   size: 16, color: Colors.grey),
-                                              SizedBox(width: 8),
+                                              const SizedBox(width: 8),
                                               Text(
                                                 'Restaurant ID: ${order.restaurantId}',
                                                 style: TextStyle(
@@ -275,12 +277,12 @@ class _OrdersScreenState extends State<OrdersScreen>
                                               ),
                                             ],
                                           ),
-                                          SizedBox(height: 8),
+                                          const SizedBox(height: 8),
                                           Row(
                                             children: [
-                                              Icon(Icons.access_time,
+                                              const Icon(Icons.access_time,
                                                   size: 16, color: Colors.grey),
-                                              SizedBox(width: 8),
+                                              const SizedBox(width: 8),
                                               Text(
                                                 _formatDateTime(
                                                     order.createdAt),
@@ -290,12 +292,12 @@ class _OrdersScreenState extends State<OrdersScreen>
                                               ),
                                             ],
                                           ),
-                                          SizedBox(height: 8),
+                                          const SizedBox(height: 8),
                                           Row(
                                             children: [
-                                              Icon(Icons.shopping_bag,
+                                              const Icon(Icons.shopping_bag,
                                                   size: 16, color: Colors.grey),
-                                              SizedBox(width: 8),
+                                              const SizedBox(width: 8),
                                               Text(
                                                 '${order.orderItems.length} ${order.orderItems.length == 1 ? 'item' : 'items'}',
                                                 style: TextStyle(
@@ -304,12 +306,12 @@ class _OrdersScreenState extends State<OrdersScreen>
                                               ),
                                             ],
                                           ),
-                                          Divider(height: 24),
+                                          const Divider(height: 24),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text(
+                                              const Text(
                                                 'Total',
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.bold,

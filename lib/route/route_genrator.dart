@@ -18,7 +18,7 @@ class RouteGenerator {
 
     switch (settings.name) {
       case Routes.splash:
-        widgetScreen = SplashScreen();
+        widgetScreen = const SplashScreen();
         break;
 
       case Routes.getstarted:
@@ -56,7 +56,8 @@ class RouteGenerator {
         if (args is Order) {
           widgetScreen = Scaffold(
             appBar: AppBar(title: Text('Order #${args.id}')),
-            body: Center(child: Text('Order details screen to be implemented')),
+            body: const Center(
+                child: Text('Order details screen to be implemented')),
           );
         } else {
           widgetScreen = _errorRoute('Order details require an order object');
@@ -69,27 +70,27 @@ class RouteGenerator {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.check_circle_outline,
+                const Icon(Icons.check_circle_outline,
                     size: 100, color: Colors.green),
-                SizedBox(height: 24),
-                Text(
+                const SizedBox(height: 24),
+                const Text(
                   'Order Confirmed!',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 16),
-                Text('Your order has been placed successfully'),
-                SizedBox(height: 32),
+                const SizedBox(height: 16),
+                const Text('Your order has been placed successfully'),
+                const SizedBox(height: 32),
                 ElevatedButton(
                   onPressed: () => Navigator.of(
                     navigatorKey.currentContext!,
                   ).pushReplacementNamed(Routes.orders),
-                  child: Text('Track Your Order'),
+                  child: const Text('Track Your Order'),
                 ),
                 TextButton(
                   onPressed: () => Navigator.of(
                     navigatorKey.currentContext!,
                   ).pushReplacementNamed(Routes.home),
-                  child: Text('Back to Home'),
+                  child: const Text('Back to Home'),
                 ),
               ],
             ),
@@ -112,7 +113,7 @@ class RouteGenerator {
         final title = _getTitleFromRouteName(settings.name ?? '');
         widgetScreen = Scaffold(
           appBar: AppBar(title: Text(title)),
-          body: Center(
+          body: const Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

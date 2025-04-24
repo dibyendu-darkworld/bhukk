@@ -5,7 +5,7 @@ import 'package:bhukk/models/restaurant_model.dart';
 class RecommendedCardList extends StatelessWidget {
   final List<RecommendedItem> items;
 
-  const RecommendedCardList({Key? key, required this.items}) : super(key: key);
+  const RecommendedCardList({super.key, required this.items});
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +120,7 @@ class RecommendedCardList extends StatelessWidget {
                         children: [
                           // Price
                           Text(
-                            '\₹${item.price.toStringAsFixed(2)}',
+                            '₹${item.price.toStringAsFixed(2)}',
                             style: GoogleFonts.jaldi(
                               color: Colors.white,
                               fontSize: 26,
@@ -177,10 +177,10 @@ class CardList extends StatelessWidget {
   final VoidCallback onTap;
 
   const CardList({
-    Key? key,
+    super.key,
     required this.restaurant,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -256,7 +256,7 @@ class CardList extends StatelessWidget {
 
                     // Address
                     Text(
-                      restaurant.address,
+                      restaurant.address ?? '',
                       style: TextStyle(
                         fontSize: 12,
                         color: Colors.grey.shade600,

@@ -42,7 +42,7 @@ dependencies:
   # HTTP related packages
   http: ^1.2.1
   flutter_secure_storage: ^9.0.0
-  geolocator: ^10.1.0
+  geolocator: ^14.0.0
 
 dev_dependencies:
   flutter_test:

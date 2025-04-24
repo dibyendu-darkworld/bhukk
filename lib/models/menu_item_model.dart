@@ -27,9 +27,7 @@ class MenuItem {
       name: json['name'],
       description: json['description'],
       price: json['price'].toDouble(),
-      discountPrice: json['discount_price'] != null
-          ? json['discount_price'].toDouble()
-          : null,
+      discountPrice: json['discount_price']?.toDouble(),
       restaurantId: json['restaurant_id'],
       isAvailable: json['is_available'],
       category: json['category'],

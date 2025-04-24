@@ -1,6 +1,6 @@
 class ApiConfig {
   // Base URL for API endpoints
-  static const String baseUrl = 'http://localhost:8001';
+  static const String baseUrl = "http://10.0.2.2:8001";
 
   // Authentication endpoints
   static const String register = '$baseUrl/api/v1/auth/register';

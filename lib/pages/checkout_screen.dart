@@ -175,7 +175,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     if (_restaurant == null || _cartItems == null || _menuItems == null) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Checkout'),
+          title: const Text('Checkout'),
           backgroundColor: AppTheme.primaryColor,
           foregroundColor: Colors.white,
         ),
@@ -183,20 +183,21 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.shopping_cart_outlined, size: 64, color: Colors.grey),
-              SizedBox(height: 16),
+              const Icon(Icons.shopping_cart_outlined,
+                  size: 64, color: Colors.grey),
+              const SizedBox(height: 16),
               Text(
                 'No checkout data available',
                 style: TextStyle(fontSize: 18, color: Colors.grey.shade700),
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () => Get.back(),
-                child: Text('Return to Restaurant'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppTheme.primaryColor,
                   foregroundColor: Colors.white,
                 ),
+                child: const Text('Return to Restaurant'),
               ),
             ],
           ),
@@ -221,11 +222,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CircularProgressIndicator(
+                  const CircularProgressIndicator(
                     valueColor:
                         AlwaysStoppedAnimation<Color>(AppTheme.primaryColor),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Text(
                     'Processing your order...',
                     style: TextStyle(color: Colors.grey.shade600),
@@ -236,15 +237,15 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           : Form(
               key: _formKey,
               child: SingleChildScrollView(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Error message if any
                     if (_hasError)
                       Container(
-                        margin: EdgeInsets.only(bottom: 16),
-                        padding: EdgeInsets.all(12),
+                        margin: const EdgeInsets.only(bottom: 16),
+                        padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
                           color: AppTheme.errorColor.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(12),
@@ -253,13 +254,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         ),
                         child: Row(
                           children: [
-                            Icon(Icons.error_outline,
+                            const Icon(Icons.error_outline,
                                 color: AppTheme.errorColor),
-                            SizedBox(width: 12),
+                            const SizedBox(width: 12),
                             Expanded(
                               child: Text(
                                 _errorMessage,
-                                style: TextStyle(color: AppTheme.errorColor),
+                                style:
+                                    const TextStyle(color: AppTheme.errorColor),
                               ),
                             ),
                           ],
@@ -268,7 +270,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
                     // Restaurant info
                     Card(
-                      margin: EdgeInsets.only(bottom: 16),
+                      margin: const EdgeInsets.only(bottom: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
@@ -287,12 +289,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                           _restaurant!.imageUrl!.isNotEmpty
                                       ? NetworkImage(_restaurant!.imageUrl!)
                                           as ImageProvider
-                                      : AssetImage('assets/images/bg1.png'),
+                                      : const AssetImage(
+                                          'assets/images/bg1.png'),
                                   fit: BoxFit.cover,
                                 ),
                               ),
                             ),
-                            SizedBox(width: 16),
+                            const SizedBox(width: 16),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -313,7 +316,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                     ),
                                   ),
                                   Text(
-                                    _restaurant!.address,
+                                    _restaurant!.address ?? '',
                                     style: TextStyle(
                                       fontSize: 13,
                                       color: Colors.grey.shade600,
@@ -331,7 +334,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
                     // Order items list
                     Card(
-                      margin: EdgeInsets.only(bottom: 16),
+                      margin: const EdgeInsets.only(bottom: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
@@ -349,7 +352,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                 color: AppTheme.textColor,
                               ),
                             ),
-                            SizedBox(height: 16),
+                            const SizedBox(height: 16),
                             ..._cartItems!.entries.map((entry) {
                               final menuItem = _getMenuItem(entry.key);
                               final itemTotal = menuItem.price * entry.value;
@@ -360,7 +363,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
-                                      padding: EdgeInsets.all(6),
+                                      padding: const EdgeInsets.all(6),
                                       decoration: BoxDecoration(
                                         color: AppTheme.primaryColor
                                             .withOpacity(0.1),
@@ -368,13 +371,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                       ),
                                       child: Text(
                                         '${entry.value}x',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: AppTheme.primaryColor,
                                         ),
                                       ),
                                     ),
-                                    SizedBox(width: 12),
+                                    const SizedBox(width: 12),
                                     Expanded(
                                       child: Column(
                                         crossAxisAlignment:
@@ -382,7 +385,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                         children: [
                                           Text(
                                             menuItem.name,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontWeight: FontWeight.w500,
                                               color: AppTheme.textColor,
                                               fontSize: 15,
@@ -401,10 +404,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                         ],
                                       ),
                                     ),
-                                    SizedBox(width: 8),
+                                    const SizedBox(width: 8),
                                     Text(
                                       '₹${itemTotal.toStringAsFixed(2)}',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: AppTheme.textColor,
                                       ),
@@ -412,15 +415,15 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                   ],
                                 ),
                               );
-                            }).toList(),
+                            }),
 
                             Divider(height: 24, color: Colors.grey.shade200),
 
                             // Order summary
                             _buildOrderSummaryRow('Subtotal', subtotal),
-                            SizedBox(height: 8),
+                            const SizedBox(height: 8),
                             _buildOrderSummaryRow('Tax (5%)', tax),
-                            SizedBox(height: 8),
+                            const SizedBox(height: 8),
                             _buildOrderSummaryRow('Delivery Fee', deliveryFee,
                                 footnote: _selectedDeliveryOption == 'takeaway'
                                     ? 'Free for takeaway'
@@ -456,7 +459,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
                     // Delivery options
                     Card(
-                      margin: EdgeInsets.only(bottom: 16),
+                      margin: const EdgeInsets.only(bottom: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
@@ -474,7 +477,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                 color: AppTheme.textColor,
                               ),
                             ),
-                            SizedBox(height: 16),
+                            const SizedBox(height: 16),
                             ...List.generate(
                               _deliveryOptions.length,
                               (index) {
@@ -490,8 +493,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                   },
                                   borderRadius: BorderRadius.circular(12),
                                   child: Container(
-                                    margin: EdgeInsets.only(bottom: 8),
-                                    padding: EdgeInsets.all(12),
+                                    margin: const EdgeInsets.only(bottom: 8),
+                                    padding: const EdgeInsets.all(12),
                                     decoration: BoxDecoration(
                                       color: isSelected
                                           ? AppTheme.primaryColor
@@ -514,7 +517,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                               : Colors.grey.shade600,
                                           size: 24,
                                         ),
-                                        SizedBox(width: 12),
+                                        const SizedBox(width: 12),
                                         Text(
                                           option['name'],
                                           style: TextStyle(
@@ -527,9 +530,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                             fontSize: 15,
                                           ),
                                         ),
-                                        Spacer(),
+                                        const Spacer(),
                                         if (isSelected)
-                                          Icon(
+                                          const Icon(
                                             Icons.check_circle,
                                             color: AppTheme.primaryColor,
                                             size: 20,
@@ -548,7 +551,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     // Delivery details
                     if (_selectedDeliveryOption == 'home_delivery')
                       Card(
-                        margin: EdgeInsets.only(bottom: 16),
+                        margin: const EdgeInsets.only(bottom: 16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                         ),
@@ -566,10 +569,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                   color: AppTheme.textColor,
                                 ),
                               ),
-                              SizedBox(height: 16),
+                              const SizedBox(height: 16),
                               TextFormField(
                                 controller: _addressController,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   labelText: 'Delivery Address',
                                   prefixIcon: Icon(Icons.location_on),
                                   hintText: 'Enter your full address',
@@ -585,10 +588,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                 },
                                 maxLines: 2,
                               ),
-                              SizedBox(height: 16),
+                              const SizedBox(height: 16),
                               TextFormField(
                                 controller: _phoneController,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   labelText: 'Phone Number',
                                   prefixIcon: Icon(Icons.phone),
                                   hintText: 'For delivery updates',
@@ -604,10 +607,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                   return null;
                                 },
                               ),
-                              SizedBox(height: 16),
+                              const SizedBox(height: 16),
                               TextFormField(
                                 controller: _instructionsController,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   labelText: 'Delivery Instructions (Optional)',
                                   prefixIcon: Icon(Icons.message),
                                   hintText:
@@ -623,7 +626,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     // Phone number for takeaway
                     if (_selectedDeliveryOption == 'takeaway')
                       Card(
-                        margin: EdgeInsets.only(bottom: 16),
+                        margin: const EdgeInsets.only(bottom: 16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                         ),
@@ -641,10 +644,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                   color: AppTheme.textColor,
                                 ),
                               ),
-                              SizedBox(height: 16),
+                              const SizedBox(height: 16),
                               TextFormField(
                                 controller: _phoneController,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   labelText: 'Phone Number',
                                   prefixIcon: Icon(Icons.phone),
                                   hintText: 'For order updates',
@@ -660,10 +663,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                   return null;
                                 },
                               ),
-                              SizedBox(height: 16),
+                              const SizedBox(height: 16),
                               TextFormField(
                                 controller: _instructionsController,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   labelText: 'Special Instructions (Optional)',
                                   prefixIcon: Icon(Icons.message),
                                   hintText: 'E.g. Preferred pickup time, etc.',
@@ -677,7 +680,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
                     // Payment methods
                     Card(
-                      margin: EdgeInsets.only(bottom: 16),
+                      margin: const EdgeInsets.only(bottom: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
@@ -695,7 +698,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                 color: AppTheme.textColor,
                               ),
                             ),
-                            SizedBox(height: 16),
+                            const SizedBox(height: 16),
                             ...List.generate(
                               _paymentMethods.length,
                               (index) {
@@ -711,8 +714,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                   },
                                   borderRadius: BorderRadius.circular(12),
                                   child: Container(
-                                    margin: EdgeInsets.only(bottom: 8),
-                                    padding: EdgeInsets.all(12),
+                                    margin: const EdgeInsets.only(bottom: 8),
+                                    padding: const EdgeInsets.all(12),
                                     decoration: BoxDecoration(
                                       color: isSelected
                                           ? AppTheme.primaryColor
@@ -735,7 +738,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                               : Colors.grey.shade600,
                                           size: 24,
                                         ),
-                                        SizedBox(width: 12),
+                                        const SizedBox(width: 12),
                                         Text(
                                           method['name'],
                                           style: TextStyle(
@@ -748,9 +751,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                             fontSize: 15,
                                           ),
                                         ),
-                                        Spacer(),
+                                        const Spacer(),
                                         if (isSelected)
-                                          Icon(
+                                          const Icon(
                                             Icons.check_circle,
                                             color: AppTheme.primaryColor,
                                             size: 20,
@@ -766,7 +769,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       ),
                     ),
 
-                    SizedBox(height: 80), // Space for bottom button
+                    const SizedBox(height: 80), // Space for bottom button
                   ],
                 ),
               ),
@@ -775,14 +778,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           _restaurant == null || _cartItems == null || _menuItems == null
               ? null
               : Container(
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.05),
                         blurRadius: 10,
-                        offset: Offset(0, -5),
+                        offset: const Offset(0, -5),
                       ),
                     ],
                   ),
@@ -792,7 +795,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppTheme.primaryColor,
                         foregroundColor: Colors.white,
-                        padding: EdgeInsets.symmetric(vertical: 16),
+                        padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -802,7 +805,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           ? Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                SizedBox(
+                                const SizedBox(
                                   width: 20,
                                   height: 20,
                                   child: CircularProgressIndicator(
@@ -810,7 +813,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                     strokeWidth: 2,
                                   ),
                                 ),
-                                SizedBox(width: 10),
+                                const SizedBox(width: 10),
                                 Text(
                                   'Processing...',
                                   style: GoogleFonts.jaldi(
@@ -860,7 +863,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         ),
         Text(
           '₹${amount.toStringAsFixed(2)}',
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.w500,
             color: AppTheme.textColor,
           ),

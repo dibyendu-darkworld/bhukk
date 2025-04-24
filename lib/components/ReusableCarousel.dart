@@ -10,12 +10,12 @@ class ReusableCarousel extends StatelessWidget {
   final Function(String?)? onItemTap;
 
   const ReusableCarousel({
-    Key? key,
+    super.key,
     required this.items,
     this.carouselHeight = 180,
     this.useNetworkImage = false,
     this.onItemTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class ReusableCarousel extends StatelessWidget {
               },
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.symmetric(horizontal: 5.0),
+                margin: const EdgeInsets.symmetric(horizontal: 5.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                 ),
@@ -65,12 +65,12 @@ class ReusableCarousel extends StatelessWidget {
                       ? CachedNetworkImage(
                           imageUrl: imageUrl,
                           fit: BoxFit.cover,
-                          placeholder: (context, url) => Center(
+                          placeholder: (context, url) => const Center(
                             child: CircularProgressIndicator(),
                           ),
                           errorWidget: (context, url, error) => Container(
                             color: Colors.grey[300],
-                            child: Icon(Icons.broken_image, size: 50),
+                            child: const Icon(Icons.broken_image, size: 50),
                           ),
                         )
                       : Image(

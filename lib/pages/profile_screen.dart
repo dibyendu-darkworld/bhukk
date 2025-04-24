@@ -86,13 +86,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
         elevation: 0,
       ),
       body: _isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
               child: Column(
                 children: [
                   // Profile header
                   Container(
-                    padding: EdgeInsets.all(24),
+                    padding: const EdgeInsets.all(24),
                     color: Theme.of(context).primaryColor.withOpacity(0.05),
                     child: Row(
                       children: [
@@ -105,7 +105,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             color: Colors.grey.shade600,
                           ),
                         ),
-                        SizedBox(width: 16),
+                        const SizedBox(width: 16),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,14 +117,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              SizedBox(height: 4),
+                              const SizedBox(height: 4),
                               Text(
                                 'john.doe@example.com', // Replace with actual email
                                 style: TextStyle(
                                   color: Colors.grey.shade700,
                                 ),
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                               OutlinedButton(
                                 onPressed: () {
                                   // Navigate to edit profile screen
@@ -132,14 +132,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 },
                                 style: OutlinedButton.styleFrom(
                                   foregroundColor: Colors.orange,
-                                  side: BorderSide(color: Colors.orange),
+                                  side: const BorderSide(color: Colors.orange),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20),
                                   ),
-                                  padding: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                       horizontal: 16, vertical: 8),
                                 ),
-                                child: Text('Edit Profile'),
+                                child: const Text('Edit Profile'),
                               ),
                             ],
                           ),
@@ -151,9 +151,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   // Menu items
                   ListView.separated(
                     shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     itemCount: _menuItems.length,
-                    separatorBuilder: (context, index) => Divider(height: 1),
+                    separatorBuilder: (context, index) => const Divider(height: 1),
                     itemBuilder: (context, index) {
                       final menuItem = _menuItems[index];
                       return ListTile(
@@ -162,7 +162,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           color: Colors.orange,
                         ),
                         title: Text(menuItem['title']),
-                        trailing: Icon(Icons.arrow_forward_ios, size: 16),
+                        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                         onTap: () {
                           // Navigate to the corresponding screen
                           Get.toNamed(menuItem['route']);
@@ -171,22 +171,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     },
                   ),
 
-                  Divider(height: 1),
+                  const Divider(height: 1),
 
                   // Logout button
                   ListTile(
-                    leading: Icon(
+                    leading: const Icon(
                       Icons.logout,
                       color: Colors.red,
                     ),
-                    title: Text('Log Out'),
+                    title: const Text('Log Out'),
                     onTap: _logout,
                   ),
 
-                  SizedBox(height: 24),
+                  const SizedBox(height: 24),
 
                   // App version
-                  Text(
+                  const Text(
                     'App Version 1.0.0',
                     style: TextStyle(
                       color: Colors.grey,
@@ -194,7 +194,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
 
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                 ],
               ),
             ),

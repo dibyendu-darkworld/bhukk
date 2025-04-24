@@ -7,10 +7,10 @@ class Restaurent extends StatelessWidget {
   final VoidCallback onTap;
 
   const Restaurent({
-    Key? key,
+    super.key,
     required this.restaurant,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -97,8 +97,8 @@ class _AuthScreenState extends State<AuthScreen>
 
         // Switch to login tab after successful registration
         _tabController.animateTo(0);
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Registration successful! Please log in.')));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Registration successful! Please log in.')));
       } catch (e) {
         setState(() {
           _errorMessage = e.toString().replaceAll('Exception: ', '');
@@ -118,7 +118,7 @@ class _AuthScreenState extends State<AuthScreen>
         child: Column(
           children: [
             // App logo and title
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
             Image.asset('assets/images/logo.png', height: 80),
             Text(
               'Bhukk',
@@ -128,7 +128,7 @@ class _AuthScreenState extends State<AuthScreen>
                 color: Colors.blueGrey[800],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Tab Bar
             TabBar(
@@ -136,7 +136,7 @@ class _AuthScreenState extends State<AuthScreen>
               labelColor: Colors.orange,
               unselectedLabelColor: Colors.blueGrey,
               indicatorColor: Colors.orange,
-              tabs: [
+              tabs: const [
                 Tab(text: 'Login'),
                 Tab(text: 'Register'),
               ],
@@ -152,7 +152,7 @@ class _AuthScreenState extends State<AuthScreen>
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   _errorMessage,
-                  style: TextStyle(color: Colors.red),
+                  style: const TextStyle(color: Colors.red),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -174,11 +174,11 @@ class _AuthScreenState extends State<AuthScreen>
                               controller: _loginEmailController,
                               decoration: InputDecoration(
                                 labelText: 'Email',
-                                prefixIcon: Icon(Icons.email),
+                                prefixIcon: const Icon(Icons.email),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15),
                                 ),
-                                contentPadding: EdgeInsets.symmetric(
+                                contentPadding: const EdgeInsets.symmetric(
                                     vertical: 15, horizontal: 20),
                               ),
                               keyboardType: TextInputType.emailAddress,
@@ -189,16 +189,16 @@ class _AuthScreenState extends State<AuthScreen>
                                 return null;
                               },
                             ),
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
                             TextFormField(
                               controller: _loginPasswordController,
                               decoration: InputDecoration(
                                 labelText: 'Password',
-                                prefixIcon: Icon(Icons.lock),
+                                prefixIcon: const Icon(Icons.lock),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15),
                                 ),
-                                contentPadding: EdgeInsets.symmetric(
+                                contentPadding: const EdgeInsets.symmetric(
                                     vertical: 15, horizontal: 20),
                               ),
                               obscureText: true,
@@ -209,31 +209,31 @@ class _AuthScreenState extends State<AuthScreen>
                                 return null;
                               },
                             ),
-                            SizedBox(height: 30),
+                            const SizedBox(height: 30),
                             ElevatedButton(
                               onPressed: _isLoading ? null : _login,
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.orange,
                                 foregroundColor: Colors.white,
-                                minimumSize: Size(double.infinity, 50),
+                                minimumSize: const Size(double.infinity, 50),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25),
                                 ),
                               ),
                               child: _isLoading
-                                  ? CircularProgressIndicator(
+                                  ? const CircularProgressIndicator(
                                       color: Colors.white)
                                   : Text(
                                       'Login',
                                       style: GoogleFonts.jaldi(fontSize: 18),
                                     ),
                             ),
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
                             TextButton(
                               onPressed: () {
                                 // Implement forgot password functionality
                               },
-                              child: Text(
+                              child: const Text(
                                 'Forgot Password?',
                                 style: TextStyle(color: Colors.blueGrey),
                               ),
@@ -256,11 +256,11 @@ class _AuthScreenState extends State<AuthScreen>
                               controller: _registerNameController,
                               decoration: InputDecoration(
                                 labelText: 'Name',
-                                prefixIcon: Icon(Icons.person),
+                                prefixIcon: const Icon(Icons.person),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15),
                                 ),
-                                contentPadding: EdgeInsets.symmetric(
+                                contentPadding: const EdgeInsets.symmetric(
                                     vertical: 15, horizontal: 20),
                               ),
                               validator: (value) {
@@ -270,16 +270,16 @@ class _AuthScreenState extends State<AuthScreen>
                                 return null;
                               },
                             ),
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
                             TextFormField(
                               controller: _registerEmailController,
                               decoration: InputDecoration(
                                 labelText: 'Email',
-                                prefixIcon: Icon(Icons.email),
+                                prefixIcon: const Icon(Icons.email),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15),
                                 ),
-                                contentPadding: EdgeInsets.symmetric(
+                                contentPadding: const EdgeInsets.symmetric(
                                     vertical: 15, horizontal: 20),
                               ),
                               keyboardType: TextInputType.emailAddress,
@@ -293,16 +293,16 @@ class _AuthScreenState extends State<AuthScreen>
                                 return null;
                               },
                             ),
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
                             TextFormField(
                               controller: _registerPasswordController,
                               decoration: InputDecoration(
                                 labelText: 'Password',
-                                prefixIcon: Icon(Icons.lock),
+                                prefixIcon: const Icon(Icons.lock),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15),
                                 ),
-                                contentPadding: EdgeInsets.symmetric(
+                                contentPadding: const EdgeInsets.symmetric(
                                     vertical: 15, horizontal: 20),
                               ),
                               obscureText: true,
@@ -316,16 +316,16 @@ class _AuthScreenState extends State<AuthScreen>
                                 return null;
                               },
                             ),
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
                             TextFormField(
                               controller: _registerConfirmPasswordController,
                               decoration: InputDecoration(
                                 labelText: 'Confirm Password',
-                                prefixIcon: Icon(Icons.lock_outline),
+                                prefixIcon: const Icon(Icons.lock_outline),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15),
                                 ),
-                                contentPadding: EdgeInsets.symmetric(
+                                contentPadding: const EdgeInsets.symmetric(
                                     vertical: 15, horizontal: 20),
                               ),
                               obscureText: true,
@@ -339,19 +339,19 @@ class _AuthScreenState extends State<AuthScreen>
                                 return null;
                               },
                             ),
-                            SizedBox(height: 30),
+                            const SizedBox(height: 30),
                             ElevatedButton(
                               onPressed: _isLoading ? null : _register,
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.orange,
                                 foregroundColor: Colors.white,
-                                minimumSize: Size(double.infinity, 50),
+                                minimumSize: const Size(double.infinity, 50),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25),
                                 ),
                               ),
                               child: _isLoading
-                                  ? CircularProgressIndicator(
+                                  ? const CircularProgressIndicator(
                                       color: Colors.white)
                                   : Text(
                                       'Register',

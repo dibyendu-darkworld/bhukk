@@ -25,12 +25,12 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
   bool _hasError = false;
   String _errorMessage = '';
   bool _isTableBooking = false;
-  DateTime _selectedDate = DateTime.now().add(Duration(days: 1));
-  TimeOfDay _selectedTime = TimeOfDay(hour: 19, minute: 0);
+  DateTime _selectedDate = DateTime.now().add(const Duration(days: 1));
+  TimeOfDay _selectedTime = const TimeOfDay(hour: 19, minute: 0);
   int _selectedPeople = 2;
 
   // For cart items
-  Map<int, int> _cartItems = {}; // menuItemId -> quantity
+  final Map<int, int> _cartItems = {}; // menuItemId -> quantity
   double _cartTotal = 0.0;
 
   @override
@@ -79,7 +79,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Failed to load menu items'),
           backgroundColor: AppTheme.errorColor,
         ),
@@ -90,7 +90,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
   void _addToCart(MenuItem item) {
     if (!item.isAvailable) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('This item is currently unavailable'),
           backgroundColor: AppTheme.errorColor,
         ),
@@ -110,7 +110,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('${item.name} added to cart'),
-        duration: Duration(seconds: 1),
+        duration: const Duration(seconds: 1),
         backgroundColor: AppTheme.successColor,
       ),
     );
@@ -138,7 +138,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
 
     return Card(
       elevation: 0,
-      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
         side: BorderSide(color: Colors.grey.shade200),
@@ -160,17 +160,17 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
                     BoxShadow(
                       color: Colors.black.withOpacity(0.05),
                       blurRadius: 5,
-                      offset: Offset(0, 2),
+                      offset: const Offset(0, 2),
                     ),
                   ],
-                  image: DecorationImage(
+                  image: const DecorationImage(
                     image: AssetImage('assets/images/pancake.png'),
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
             ),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
 
             // Menu item details
             Expanded(
@@ -185,7 +185,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
                       color: AppTheme.textColor,
                     ),
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Text(
                     item.description,
                     style: TextStyle(
@@ -196,7 +196,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Row(
                     children: [
                       Text(
@@ -216,7 +216,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
             // Add/Remove buttons
             if (!item.isAvailable)
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: Colors.red.shade50,
                   borderRadius: BorderRadius.circular(6),
@@ -241,9 +241,11 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
                   children: [
                     IconButton(
                       onPressed: () => _removeFromCart(item),
-                      icon: Icon(Icons.remove, color: AppTheme.primaryColor),
+                      icon: const Icon(Icons.remove,
+                          color: AppTheme.primaryColor),
                       iconSize: 20,
-                      constraints: BoxConstraints(maxWidth: 32, minWidth: 32),
+                      constraints:
+                          const BoxConstraints(maxWidth: 32, minWidth: 32),
                       padding: EdgeInsets.zero,
                     ),
                     Container(
@@ -259,9 +261,10 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
                     ),
                     IconButton(
                       onPressed: () => _addToCart(item),
-                      icon: Icon(Icons.add, color: AppTheme.primaryColor),
+                      icon: const Icon(Icons.add, color: AppTheme.primaryColor),
                       iconSize: 20,
-                      constraints: BoxConstraints(maxWidth: 32, minWidth: 32),
+                      constraints:
+                          const BoxConstraints(maxWidth: 32, minWidth: 32),
                       padding: EdgeInsets.zero,
                     ),
                   ],
@@ -276,10 +279,11 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  minimumSize: Size(40, 32),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  minimumSize: const Size(40, 32),
                 ),
-                child: Text('Add'),
+                child: const Text('Add'),
               ),
           ],
         ),
@@ -292,13 +296,13 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
+          const Icon(
             Icons.error_outline,
             size: 60,
             color: AppTheme.errorColor,
           ),
-          SizedBox(height: 16),
-          Text(
+          const SizedBox(height: 16),
+          const Text(
             'Failed to load menu',
             style: TextStyle(
               fontSize: 18,
@@ -306,7 +310,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
               color: AppTheme.textColor,
             ),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40),
             child: Text(
@@ -315,13 +319,13 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
               style: TextStyle(color: Colors.grey[600]),
             ),
           ),
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
           ElevatedButton.icon(
             onPressed: _loadMenuItems,
-            icon: Icon(Icons.refresh),
-            label: Text('Try Again'),
+            icon: const Icon(Icons.refresh),
+            label: const Text('Try Again'),
             style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             ),
           ),
         ],
@@ -334,10 +338,10 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CircularProgressIndicator(
+          const CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(AppTheme.primaryColor),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Text(
             'Loading menu...',
             style: TextStyle(color: Colors.grey[600]),
@@ -361,7 +365,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
               color: AppTheme.textColor,
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
 
           // Date Picker
           InkWell(
@@ -370,11 +374,11 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
                 context: context,
                 initialDate: _selectedDate,
                 firstDate: DateTime.now(),
-                lastDate: DateTime.now().add(Duration(days: 30)),
+                lastDate: DateTime.now().add(const Duration(days: 30)),
                 builder: (context, child) {
                   return Theme(
                     data: Theme.of(context).copyWith(
-                      colorScheme: ColorScheme.light(
+                      colorScheme: const ColorScheme.light(
                         primary: AppTheme.primaryColor,
                       ),
                     ),
@@ -390,7 +394,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
               }
             },
             child: Container(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey.shade300),
                 borderRadius: BorderRadius.circular(12),
@@ -398,23 +402,25 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
               ),
               child: Row(
                 children: [
-                  Icon(Icons.calendar_today, color: AppTheme.primaryColor),
-                  SizedBox(width: 12),
+                  const Icon(Icons.calendar_today,
+                      color: AppTheme.primaryColor),
+                  const SizedBox(width: 12),
                   Text(
                     "${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16,
                       color: AppTheme.textColor,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  Spacer(),
-                  Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+                  const Spacer(),
+                  const Icon(Icons.arrow_forward_ios,
+                      size: 16, color: Colors.grey),
                 ],
               ),
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
 
           // Time Picker
           InkWell(
@@ -425,7 +431,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
                 builder: (context, child) {
                   return Theme(
                     data: Theme.of(context).copyWith(
-                      colorScheme: ColorScheme.light(
+                      colorScheme: const ColorScheme.light(
                         primary: AppTheme.primaryColor,
                       ),
                     ),
@@ -441,7 +447,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
               }
             },
             child: Container(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey.shade300),
                 borderRadius: BorderRadius.circular(12),
@@ -449,27 +455,28 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
               ),
               child: Row(
                 children: [
-                  Icon(Icons.access_time, color: AppTheme.primaryColor),
-                  SizedBox(width: 12),
+                  const Icon(Icons.access_time, color: AppTheme.primaryColor),
+                  const SizedBox(width: 12),
                   Text(
-                    "${_selectedTime.format(context)}",
-                    style: TextStyle(
+                    _selectedTime.format(context),
+                    style: const TextStyle(
                       fontSize: 16,
                       color: AppTheme.textColor,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  Spacer(),
-                  Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+                  const Spacer(),
+                  const Icon(Icons.arrow_forward_ios,
+                      size: 16, color: Colors.grey),
                 ],
               ),
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
 
           // Number of People
           Container(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.grey.shade300),
               borderRadius: BorderRadius.circular(12),
@@ -478,7 +485,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   'Number of People',
                   style: TextStyle(
                     fontSize: 16,
@@ -486,7 +493,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
                     color: AppTheme.textColor,
                   ),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -496,7 +503,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
               ],
             ),
           ),
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
 
           // Notes field
           TextField(
@@ -506,22 +513,22 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
                 borderRadius: BorderRadius.circular(12),
               ),
               hintText: 'Any special requests for your booking...',
-              floatingLabelStyle: TextStyle(color: AppTheme.primaryColor),
+              floatingLabelStyle: const TextStyle(color: AppTheme.primaryColor),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: AppTheme.primaryColor),
+                borderSide: const BorderSide(color: AppTheme.primaryColor),
               ),
             ),
             maxLines: 3,
           ),
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
 
           // Book Table Button
           ElevatedButton(
             onPressed: () {
               // Implement booking functionality
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
+                const SnackBar(
                   content: Text(
                       'Table booking requested! We will notify you when confirmed.'),
                   backgroundColor: AppTheme.successColor,
@@ -531,7 +538,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
             style: ElevatedButton.styleFrom(
               backgroundColor: AppTheme.primaryColor,
               foregroundColor: Colors.white,
-              minimumSize: Size(double.infinity, 50),
+              minimumSize: const Size(double.infinity, 50),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
@@ -606,7 +613,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
                   ],
                 ),
               ),
-              titlePadding: EdgeInsets.only(left: 16, bottom: 16),
+              titlePadding: const EdgeInsets.only(left: 16, bottom: 16),
               background: Stack(
                 fit: StackFit.expand,
                 children: [
@@ -641,18 +648,19 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
             ),
             actions: [
               IconButton(
-                icon: Icon(Icons.share, color: Colors.white),
+                icon: const Icon(Icons.share, color: Colors.white),
                 onPressed: () {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Sharing restaurant details...')),
+                    const SnackBar(
+                        content: Text('Sharing restaurant details...')),
                   );
                 },
               ),
               IconButton(
-                icon: Icon(Icons.favorite_border, color: Colors.white),
+                icon: const Icon(Icons.favorite_border, color: Colors.white),
                 onPressed: () {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Added to favorites!')),
+                    const SnackBar(content: Text('Added to favorites!')),
                   );
                 },
               ),
@@ -662,23 +670,24 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
           // Restaurant Info Section
           SliverToBoxAdapter(
             child: Container(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
                       Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
                           color: Colors.amber.shade100,
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Row(
                           children: [
-                            Icon(Icons.star, color: Colors.amber, size: 16),
-                            SizedBox(width: 4),
+                            const Icon(Icons.star,
+                                color: Colors.amber, size: 16),
+                            const SizedBox(width: 4),
                             Text(
                               '${widget.restaurant.rating}',
                               style: TextStyle(
@@ -690,18 +699,19 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
                           ],
                         ),
                       ),
-                      SizedBox(width: 12),
-                      Icon(Icons.location_on, color: Colors.red, size: 18),
-                      SizedBox(width: 4),
+                      const SizedBox(width: 12),
+                      const Icon(Icons.location_on,
+                          color: Colors.red, size: 18),
+                      const SizedBox(width: 4),
                       Text(
                         '${widget.restaurant.distance?.toStringAsFixed(1) ?? "?"} km away',
                         style: TextStyle(
                             fontSize: 14, color: Colors.grey.shade700),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 4),
                         decoration: BoxDecoration(
                           color: widget.restaurant.isOpen ?? true
                               ? Colors.green.shade50
@@ -726,9 +736,10 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
                       ),
                     ],
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     decoration: BoxDecoration(
                       color: Colors.grey.shade100,
                       borderRadius: BorderRadius.circular(8),
@@ -741,12 +752,12 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
                       ),
                     ),
                   ),
-                  SizedBox(height: 12),
+                  const SizedBox(height: 12),
                   Row(
                     children: [
                       Icon(Icons.access_time,
                           size: 16, color: Colors.grey.shade700),
-                      SizedBox(width: 6),
+                      const SizedBox(width: 6),
                       Text(
                         '${widget.restaurant.openingTime} - ${widget.restaurant.closingTime}',
                         style: TextStyle(
@@ -756,14 +767,14 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
                       ),
                     ],
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Row(
                     children: [
                       Icon(Icons.map, size: 16, color: Colors.grey.shade700),
-                      SizedBox(width: 6),
+                      const SizedBox(width: 6),
                       Expanded(
                         child: Text(
-                          widget.restaurant.address,
+                          widget.restaurant.address ?? '',
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.grey.shade700,
@@ -774,16 +785,16 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
                       ),
                     ],
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Text(
-                    widget.restaurant.description,
-                    style: TextStyle(
+                    widget.restaurant.description ?? '',
+                    style: const TextStyle(
                       fontSize: 14,
                       height: 1.5,
                     ),
                   ),
-                  SizedBox(height: 8),
-                  Divider(),
+                  const SizedBox(height: 8),
+                  const Divider(),
                 ],
               ),
             ),
@@ -797,7 +808,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
               labelColor: AppTheme.primaryColor,
               unselectedLabelColor: Colors.grey,
               indicatorWeight: 3,
-              tabs: [
+              tabs: const [
                 Tab(text: 'Menu'),
                 Tab(text: 'Book Table'),
               ],
@@ -829,7 +840,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
                                       size: 64,
                                       color: Colors.grey.shade400,
                                     ),
-                                    SizedBox(height: 16),
+                                    const SizedBox(height: 16),
                                     Text(
                                       'No menu items available',
                                       style: TextStyle(
@@ -841,7 +852,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
                                 ),
                               )
                             : ListView.builder(
-                                padding: EdgeInsets.all(12),
+                                padding: const EdgeInsets.all(12),
                                 itemCount: _categorizedMenu.length,
                                 itemBuilder: (context, index) {
                                   final category =
@@ -855,7 +866,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
                                         padding: const EdgeInsets.fromLTRB(
                                             8, 16, 8, 12),
                                         child: Container(
-                                          padding: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                               horizontal: 12, vertical: 6),
                                           decoration: BoxDecoration(
                                             color: AppTheme.primaryColor
@@ -873,11 +884,9 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
                                           ),
                                         ),
                                       ),
-                                      ...items
-                                          .map((item) =>
-                                              _buildMenuItemCard(item))
-                                          .toList(),
-                                      SizedBox(height: 8),
+                                      ...items.map(
+                                          (item) => _buildMenuItemCard(item)),
+                                      const SizedBox(height: 8),
                                     ],
                                   );
                                 },
@@ -895,14 +904,14 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
       bottomNavigationBar: _cartItems.isEmpty || _isTableBooking
           ? null
           : Container(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               decoration: BoxDecoration(
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.05),
                     blurRadius: 10,
-                    offset: Offset(0, -5),
+                    offset: const Offset(0, -5),
                   ),
                 ],
               ),
@@ -914,7 +923,9 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '${_cartItems.values.reduce((a, b) => a + b)} items',
+                          _cartItems.isNotEmpty
+                              ? '${_cartItems.values.reduce((a, b) => a + b)} items'
+                              : '0 items',
                           style: TextStyle(
                             fontSize: 13,
                             color: Colors.grey.shade700,
@@ -930,7 +941,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
                         ),
                       ],
                     ),
-                    SizedBox(width: 16),
+                    const SizedBox(width: 16),
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () {
@@ -945,7 +956,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen>
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppTheme.primaryColor,
                           foregroundColor: Colors.white,
-                          padding: EdgeInsets.symmetric(vertical: 14),
+                          padding: const EdgeInsets.symmetric(vertical: 14),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
