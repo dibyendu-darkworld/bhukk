@@ -166,6 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _loadRestaurants() async {
+    print('Loading restaurants...'); // Debug print
     if (_isLoading && _currentPage > 0) return;
 
     setState(() {
@@ -175,10 +176,12 @@ class _HomeScreenState extends State<HomeScreen> {
     });
 
     try {
+      // Fetch from your local server.py dummy data
       final restaurants = await _restaurantService.getAllRestaurants(
         skip: _currentPage * 10,
         limit: 10,
       );
+      print('Restaurants loaded: \\${restaurants.length}'); // Debug print
 
       setState(() {
         if (_currentPage == 0) {
@@ -191,12 +194,12 @@ class _HomeScreenState extends State<HomeScreen> {
         _hasMoreData = restaurants.length == 10;
       });
     } catch (e, stack) {
-      print('Failed to load restaurants: $e');
+      print('Failed to load restaurants: \\${e.toString()}');
       print(stack);
       setState(() {
         _isLoading = false;
         _hasError = true;
-        _errorMessage = 'Failed to load restaurants: ${e.toString()}';
+        _errorMessage = 'Failed to load restaurants: \\${e.toString()}';
       });
     }
   }
