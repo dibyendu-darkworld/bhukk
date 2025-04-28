@@ -261,15 +261,15 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   List<Restaurant> get _filteredRestaurants {
+    // Show all restaurants for the All/filtered restaurants section
     if (_selectedCategory == 'All') {
       return _allRestaurants;
+    } else {
+      // Optionally filter by category if needed
+      return _allRestaurants
+          .where((r) => r.cuisineType == _selectedCategory)
+          .toList();
     }
-
-    return _allRestaurants
-        .where((restaurant) =>
-            restaurant.cuisineType.toLowerCase() ==
-            _selectedCategory.toLowerCase())
-        .toList();
   }
 
   void _navigateToRestaurantDetails(Restaurant restaurant) {
@@ -512,7 +512,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildNearbyRestaurantsSection() {
-    if (_nearbyRestaurants.isEmpty && !_isNearbyLoading) {
+    // Only show restaurants within 10km radius (already filtered by backend)
+    final List<Restaurant> nearbyWithin10km = _nearbyRestaurants
+        .where((r) => r.distance != null && r.distance! <= 10.0)
+        .toList();
+    if (nearbyWithin10km.isEmpty && !_isNearbyLoading) {
       return const SizedBox.shrink();
     }
 
@@ -531,7 +535,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              if (_nearbyRestaurants.length > 5)
+              if (nearbyWithin10km.length > 5)
                 TextButton(
                   onPressed: () {
                     // View all nearby restaurants
@@ -561,12 +565,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: ListView.builder(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   scrollDirection: Axis.horizontal,
-                  itemCount: _nearbyRestaurants.length,
+                  itemCount: nearbyWithin10km.length,
                   itemBuilder: (context, index) {
                     return Restaurent(
-                      restaurant: _nearbyRestaurants[index],
-                      onTap: () => _navigateToRestaurantDetails(
-                          _nearbyRestaurants[index]),
+                      restaurant: nearbyWithin10km[index],
+                      onTap: () =>
+                          _navigateToRestaurantDetails(nearbyWithin10km[index]),
                     );
                   },
                 ),
