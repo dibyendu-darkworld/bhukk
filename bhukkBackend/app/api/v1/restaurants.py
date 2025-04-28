@@ -17,9 +17,24 @@ app.add_middleware(
 @router.get("/restaurants")
 def get_restaurants(
     lat: float = Query(None, description="Latitude (optional, for distance calculation)"),
-    lng: float = Query(None, description="Longitude (optional, for distance calculation)")
+    lng: float = Query(None, description="Longitude (optional, for distance calculation)"),
+    skip: int = Query(0, description="Number of records to skip (pagination)"),
+    limit: int = Query(10, description="Maximum number of records to return (pagination)")
 ):
-    return fetch_all_restaurants()
+    restaurants = fetch_all_restaurants()
+    # If lat/lng are provided, calculate distance for all restaurants
+    if lat is not None and lng is not None:
+        for r in restaurants:
+            try:
+                lat_rest = float(r["latitude"])
+                lng_rest = float(r["longitude"])
+                dist = haversine(lat, lng, lat_rest, lng_rest)
+                # Always set as float, not string
+                r["distance"] = float(dist)
+            except (TypeError, ValueError, KeyError):
+                r["distance"] = None
+    # Pagination
+    return restaurants[skip:skip+limit]
 
 @router.get("/restaurants/{restaurant_id}")
 def get_restaurant_by_id(
@@ -82,5 +97,3 @@ def health_check():
 def root():
     return {"message": "Welcome to the Bhukk Food Delivery API! See /docs for API documentation."}
 
-# In main.py, include this router with prefix='/api/v1'
-# app.include_router(restaurants_router, prefix='/api/v1')

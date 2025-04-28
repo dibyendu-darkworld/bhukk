@@ -9,12 +9,20 @@ class RestaurantService {
   final AuthService _authService = AuthService();
 
   // Get all restaurants
-  Future<List<Restaurant>> getAllRestaurants(
-      {int skip = 0, int limit = 10}) async {
+  Future<List<Restaurant>> getAllRestaurants({
+    int skip = 0,
+    int limit = 10,
+    double? latitude,
+    double? longitude,
+  }) async {
     try {
       final headers = await _authService.getAuthHeader();
+      String url = '${ApiConfig.restaurants}?skip=$skip&limit=$limit';
+      if (latitude != null && longitude != null) {
+        url += '&lat=$latitude&lng=$longitude';
+      }
       final response = await http.get(
-        Uri.parse('${ApiConfig.restaurants}?skip=$skip&limit=$limit'),
+        Uri.parse(url),
         headers: headers,
       );
 

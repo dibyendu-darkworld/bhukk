@@ -176,12 +176,24 @@ class _HomeScreenState extends State<HomeScreen> {
     });
 
     try {
-      // Fetch from your local server.py dummy data
+      double? lat;
+      double? lng;
+      if (_isLocationEnabled) {
+        try {
+          final position = await Geolocator.getCurrentPosition();
+          lat = position.latitude;
+          lng = position.longitude;
+        } catch (e) {
+          print('Could not get user location for distance: $e');
+        }
+      }
       final restaurants = await _restaurantService.getAllRestaurants(
         skip: _currentPage * 10,
         limit: 10,
+        latitude: lat,
+        longitude: lng,
       );
-      print('Restaurants loaded: \\${restaurants.length}'); // Debug print
+      print('Restaurants loaded: \\${restaurants.length}');
 
       setState(() {
         if (_currentPage == 0) {

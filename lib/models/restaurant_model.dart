@@ -36,6 +36,15 @@ class Restaurant {
   });
 
   factory Restaurant.fromJson(Map<String, dynamic> json) {
+    double? parsedDistance;
+    if (json['distance'] != null) {
+      final d = json['distance'];
+      if (d is num) {
+        parsedDistance = d.toDouble();
+      } else if (d is String) {
+        parsedDistance = double.tryParse(d);
+      }
+    }
     return Restaurant(
       id: json['id'],
       name: json['name'] ?? '',
@@ -51,7 +60,7 @@ class Restaurant {
       longitude: json['longitude'] != null ? (json['longitude'] as num).toDouble() : 0.0,
       openingTime: json['opening_time']?.toString(),
       closingTime: json['closing_time']?.toString(),
-      distance: json['distance'] != null ? (json['distance'] as num).toDouble() : null,
+      distance: parsedDistance,
       isOpen: json['is_open'],
     );
   }
