@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 import 'package:bhukk/config/api_config.dart';
 import 'package:bhukk/models/restaurant_model.dart';
 import 'package:bhukk/models/menu_item_model.dart';
@@ -7,6 +7,7 @@ import 'package:bhukk/services/auth_service.dart';
 
 class RestaurantService {
   final AuthService _authService = AuthService();
+  final Dio _dio = Dio();
 
   // Get all restaurants
   Future<List<Restaurant>> getAllRestaurants({
@@ -21,13 +22,13 @@ class RestaurantService {
       if (latitude != null && longitude != null) {
         url += '&lat=$latitude&lng=$longitude';
       }
-      final response = await http.get(
-        Uri.parse(url),
-        headers: headers,
+      final response = await _dio.get(
+        url,
+        options: Options(headers: headers),
       );
-
       if (response.statusCode == 200) {
-        final List<dynamic> data = jsonDecode(response.body);
+        final List<dynamic> data =
+            response.data is String ? jsonDecode(response.data) : response.data;
         return data
             .map((restaurant) => Restaurant.fromJson(restaurant))
             .toList();
@@ -43,13 +44,14 @@ class RestaurantService {
   Future<Restaurant> getRestaurantById(int id) async {
     try {
       final headers = await _authService.getAuthHeader();
-      final response = await http.get(
-        Uri.parse(ApiConfig.getRestaurantById(id)),
-        headers: headers,
+      final response = await _dio.get(
+        ApiConfig.getRestaurantById(id),
+        options: Options(headers: headers),
       );
-
       if (response.statusCode == 200) {
-        return Restaurant.fromJson(jsonDecode(response.body));
+        final data =
+            response.data is String ? jsonDecode(response.data) : response.data;
+        return Restaurant.fromJson(data);
       } else {
         throw Exception('Failed to load restaurant details');
       }
@@ -74,22 +76,19 @@ class RestaurantService {
         url += '&cuisine_type=$cuisineType';
       }
 
-      final response = await http.get(
-        Uri.parse(url),
-        headers: headers,
+      final response = await _dio.get(
+        url,
+        options: Options(headers: headers),
       );
-
       if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-
+        final data =
+            response.data is String ? jsonDecode(response.data) : response.data;
         // Check if the response is the "not found" message format
         if (data is Map &&
             data.containsKey('status') &&
             data['status'] == 'not_found') {
           return [];
         }
-
-        // Otherwise parse as a list of restaurants
         final List<dynamic> restaurants = data;
         return restaurants
             .map((restaurant) => Restaurant.fromJson(restaurant))
@@ -106,13 +105,13 @@ class RestaurantService {
   Future<List<MenuItem>> getRestaurantMenuItems(int restaurantId) async {
     try {
       final headers = await _authService.getAuthHeader();
-      final response = await http.get(
-        Uri.parse(ApiConfig.getRestaurantMenuItems(restaurantId)),
-        headers: headers,
+      final response = await _dio.get(
+        ApiConfig.getRestaurantMenuItems(restaurantId),
+        options: Options(headers: headers),
       );
-
       if (response.statusCode == 200) {
-        final List<dynamic> data = jsonDecode(response.body);
+        final List<dynamic> data =
+            response.data is String ? jsonDecode(response.data) : response.data;
         return data.map((item) => MenuItem.fromJson(item)).toList();
       } else {
         throw Exception('Failed to load menu items');

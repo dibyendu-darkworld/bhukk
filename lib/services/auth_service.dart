@@ -1,11 +1,12 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:bhukk/config/api_config.dart';
 import 'package:bhukk/models/user_model.dart';
 import 'package:flutter/foundation.dart';
 
 class AuthService {
+  final Dio _dio = Dio();
   // Create storage with explicit options to avoid platform issues
   final FlutterSecureStorage _storage = const FlutterSecureStorage(
     aOptions: AndroidOptions(
@@ -22,18 +23,22 @@ class AuthService {
       required String username,
       required String password}) async {
     try {
-      final response = await http.post(
-        Uri.parse(ApiConfig.register),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode(
-            {'email': email, 'username': username, 'password': password}),
+      final response = await _dio.post(
+        ApiConfig.register,
+        options: Options(headers: {'Content-Type': 'application/json'}),
+        data: jsonEncode({
+          'email': email,
+          'username': username,
+          'password': password,
+        }),
       );
-
       if (response.statusCode == 201) {
-        final userData = jsonDecode(response.body);
+        final userData =
+            response.data is String ? jsonDecode(response.data) : response.data;
         return User.fromJson(userData);
       } else {
-        final error = jsonDecode(response.body);
+        final error =
+            response.data is String ? jsonDecode(response.data) : response.data;
         throw Exception(error['detail'] ?? 'Registration failed');
       }
     } catch (e) {
@@ -44,21 +49,22 @@ class AuthService {
   // Login user and get access token
   Future<User?> login({required String email, required String password}) async {
     try {
-      final response = await http.post(
-        Uri.parse(ApiConfig.login),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
+      final response = await _dio.post(
+        ApiConfig.login,
+        options: Options(headers: {'Content-Type': 'application/json'}),
+        data: jsonEncode({
           'username': email, // API uses 'username' field for email login
           'password': password
         }),
       );
-
       if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
+        final data =
+            response.data is String ? jsonDecode(response.data) : response.data;
 
         // Store access token securely with error handling
         try {
-          await _storage.write(key: 'access_token', value: data['access_token']);
+          await _storage.write(
+              key: 'access_token', value: data['access_token']);
           await _storage.write(key: 'token_type', value: data['token_type']);
         } catch (e) {
           debugPrint('Error storing auth tokens: $e');
@@ -73,7 +79,8 @@ class AuthService {
         }
         return null;
       } else {
-        final error = jsonDecode(response.body);
+        final error =
+            response.data is String ? jsonDecode(response.data) : response.data;
         throw Exception(error['detail'] ?? 'Login failed');
       }
     } catch (e) {
